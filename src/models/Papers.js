@@ -31,6 +31,6 @@ const fileSchema = new mongoose.Schema({
   papers: [papersSchema],
 });
 
-const Papers = mongoose.model.papers || mongoose.model("papers", fileSchema);
+const Papers = mongoose.models.papers || mongoose.model("papers", fileSchema);
 
 export default Papers;
