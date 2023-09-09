@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes jump {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0); /* No vertical movement */
+  }
+  40% {
+    transform: translateY(-10px); /* Jump up by 10px */
+  }
+  60% {
+    transform: translateY(-5px); /* Land halfway down */
+  }
+}
+
+
+.animate-jump {
+  animation: jump 2s ease-in-out infinite;
+}
+

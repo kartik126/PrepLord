@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
+const imagesSchema = new mongoose.Schema({
+  type: String,
+  image: String,
+});
+
 const instituteSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -9,13 +14,14 @@ const instituteSchema = new mongoose.Schema({
   locality: String,
   class_Mode: String,
   language: String,
-  price: Number,
-  rating: Number,
+  price: String,
+  rating: String,
   address: String,
   phone: String,
-  logo: String,
+  images: [imagesSchema],
 });
 
-const Institute = mongoose.models.Institute || mongoose.model('Institute', instituteSchema);
+const Institute =
+  mongoose.models.Institute || mongoose.model("Institute", instituteSchema);
 
 export default Institute;
