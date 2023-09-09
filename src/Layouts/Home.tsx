@@ -1,6 +1,7 @@
 import Footer from "@/components/modules/Footer";
 import Header from "@/components/modules/Header";
 import SearchBanner from "@/components/modules/SearchBanner";
+import SelectExam from "@/components/modules/SelectExam";
 import React from "react";
 
 function Home() {
@@ -8,7 +9,7 @@ function Home() {
     <>
       <Header/>
       <SearchBanner/>
-      
+      <SelectExam/>
       <Footer/>
     </>
   );
