@@ -13,7 +13,7 @@ interface AdSpaceProps {
 
 function AdSpace({institute}:AdSpaceProps) {
   return (
-    <div className="bg-white shadow-md rounded-md p-4">
+    <div className="bg-white shadow-md rounded-md p-4 m-4">
       <h2 className="text-2xl font-semibold">{institute.name}</h2>
       <p className="text-gray-600">{institute.location}</p>
       <div className="mt-4">
