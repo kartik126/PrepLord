@@ -7,6 +7,7 @@ import { connect } from "@/dbConfig/dbConfig";
 connect();
 
 export async function POST(request: NextRequest) {
+  
   const data = await request.formData();
 
   const files = data.getAll("file");
@@ -58,4 +59,21 @@ export async function POST(request: NextRequest) {
       message: "Error saving papers",
     });
   }
+}
+
+export async function GET(request : NextRequest){
+
+  const data = await request.formData();
+
+
+  const exam_id = data.get("exam_id"); 
+
+  try {
+    
+    const getPapers = await Papers.findById({})
+  } catch (error) {
+    
+  }
+
+
 }

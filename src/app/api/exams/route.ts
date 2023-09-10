@@ -26,7 +26,6 @@ export async function POST(request: Request) {
     // Create a new Exam instance using the Mongoose model
     const newExam = new Exams({
       name: requestBody.name,
-      image: requestBody.image,
       categories: requestBody.categories,
     });
 
