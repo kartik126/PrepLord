@@ -1,14 +1,15 @@
-import React from 'react'
-import delhi from '../../../public/cities/delhi.jpeg'
-import Image from 'next/image'
+import React from 'react';
+import Image from 'next/image';
 
-function CityCard() {
+function CityCard({ city }) {
   return (
-    <div className='w-[220px] relative'>
-      <Image src={delhi} alt='city image' className='rounded-lg absolute'/>
-      <h1 className='absolute top-20 left-20 text-white font-bold text-2xl'>Delhi</h1>
+    <div className='w-[180px] h-[230px] relative rounded-lg group overflow-hidden'>
+      <Image src={city.image} alt='city image' className='absolute inset-0 w-full h-full rounded-lg' layout='fill' objectFit='cover' />
+      <div className="absolute inset-x-0 bottom-0 h-full bg-black bg-opacity-50 flex items-center justify-center">
+        <h3 className="text-white text-2xl font-medium">{city.name}</h3>
+      </div>
     </div>
-  )
+  );
 }
 
-export default CityCard
+export default CityCard;
