@@ -20,6 +20,7 @@ import {
 
 import preplordLogo from "../../../public/logo/logo.png";
 import Image from "next/image";
+import Link from "next/link";
 
 const products = [
   {
@@ -72,14 +73,14 @@ export default function Example() {
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <Link href="/" className="-m-1.5 p-1.5">
             <Image
               className=""
               src={preplordLogo}
               width={180}
               alt="preplord logo"
             />
-          </a>
+          </Link>
         </div>
 
         <div className="flex lg:hidden">

@@ -395,6 +395,7 @@ export default function Exams({ params }: { params: { slug: string } }) {
                 {/* Exams subcategories grid */}
                 <div className="lg:col-span-3">
                   <div className="container mx-auto p-4">
+                    {/* <h1 className="text-xl">Explore all exams</h1> */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                       {/* Map over items and apply colors */}
                       {ExamsSubcategory.map((item, index) => (

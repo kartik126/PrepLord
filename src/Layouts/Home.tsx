@@ -15,6 +15,7 @@ import delhi from "../../public/cities/delhi.jpeg";
 import mumbai from "../../public/cities/mumbai.jpeg";
 import chandigarh from "../../public/cities/chandigarh.jpeg";
 import ExamCard from "@/components/modules/ExamCard";
+import Modal from "@/components/modules/Modal";
 
 const instituteInfo = {
   name: "Sample Institute",
@@ -47,6 +48,7 @@ const exams = [
 function Home() {
   return (
     <>
+    <Modal/>
       <Header />
 
       <SearchBanner />
