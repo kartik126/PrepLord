@@ -11,11 +11,10 @@ import { primary_color } from "@/utils/Colors";
 import Button from "@/components/elements/Button";
 import CityCard from "@/components/modules/CityCard";
 import EnquiryBanner from "@/components/modules/EnquiryBanner";
-import delhi from '../../public/cities/delhi.jpeg'
-import mumbai from '../../public/cities/mumbai.jpeg'
-import chandigarh from '../../public/cities/chandigarh.jpeg'
+import delhi from "../../public/cities/delhi.jpeg";
+import mumbai from "../../public/cities/mumbai.jpeg";
+import chandigarh from "../../public/cities/chandigarh.jpeg";
 import ExamCard from "@/components/modules/ExamCard";
-
 
 const instituteInfo = {
   name: "Sample Institute",
@@ -25,13 +24,12 @@ const instituteInfo = {
 };
 
 const cities = [
-  { name: 'Delhi', image: delhi },
-  { name: 'Mumbai', image: mumbai },
-  { name: 'Chandigarh', image: chandigarh },
-  { name: 'Mumbai', image: mumbai },
-  { name: 'Delhi', image: delhi },
-
-]
+  { name: "Delhi", image: delhi },
+  { name: "Mumbai", image: mumbai },
+  { name: "Chandigarh", image: chandigarh },
+  { name: "Mumbai", image: mumbai },
+  { name: "Delhi", image: delhi },
+];
 const exams = [
   "UGC NET",
   "SSC JE",
@@ -65,7 +63,7 @@ function Home() {
         </div>
       </div>
 
-      <div className="" style={{ padding: "4% 4%" }}>
+      <div className="" style={{ padding: "6% 10%" }}>
         <div className="flex flex-row justify-between items-center">
           <h1 className="text-3xl text-gray-700 text-left font-light text-left ">
             Popular Institutes in{" "}
@@ -81,12 +79,12 @@ function Home() {
           ))}
         </div>
       </div>
-      <div className="" style={{ padding: "4% 4%" }}>
+      <div className="" style={{ padding: "6% 10%" }}>
         <div className="flex flex-row justify-between items-center">
           <h1 className="text-3xl text-gray-700 text-left font-light text-left ">
             Prepare yourself for{" "}
             <span className="font-normal" style={{ color: primary_color }}>
-              Compitative Exams
+              Competitive Exams
             </span>{" "}
           </h1>
           <Button text={"View All"} />
@@ -99,7 +97,10 @@ function Home() {
             </div>
           ))}
         </div>
-        <div className="flex flex-row justify-between" style={{marginTop:'-70px'}}>
+        <div
+          className="flex flex-row justify-between"
+          style={{ marginTop: "-70px" }}
+        >
           {/* Examss card */}
           {exams.map((exam, index) => (
             <div key={index} className="flex flex-row justify-between py-10">

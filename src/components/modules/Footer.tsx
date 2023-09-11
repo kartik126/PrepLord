@@ -41,20 +41,20 @@ function Footer() {
           <div className='flex space-x-20'>
             <div className="text-white">
               {exams.map((exam, index) => (
-                <p className='pb-1 text-sm font-regular' key={index}>{exam}</p>
+                <p className='cursor-pointer hover:underline pb-1 text-sm font-regular' key={index}>{exam}</p>
               ))}
             </div>
             <div className="text-white">
               {exams.map((exam, index) => (
-                <p className='pb-1 text-sm font-regular pl-10' key={index}>{exam}</p>
+                <p className='cursor-pointer hover:underline pb-1 text-sm font-regular pl-10' key={index}>{exam}</p>
               ))}
             </div><div className="text-white">
               {exams.map((exam, index) => (
-                <p className='pb-1 text-sm font-regular pl-10' key={index}>{exam}</p>
+                <p className='cursor-pointer hover:underline pb-1 text-sm font-regular pl-10' key={index}>{exam}</p>
               ))}
             </div><div className="text-white ">
               {exams.map((exam, index) => (
-                <p className='pb-1 text-sm font-regular pl-10' key={index}>{exam}</p>
+                <p className='cursor-pointer hover:underline pb-1 text-sm font-regular pl-10' key={index}>{exam}</p>
               ))}
             </div>
           </div>
@@ -67,16 +67,16 @@ function Footer() {
           <div className='flex space-x-10'>
             <div className="text-white">
               {previousYearPapers.map((exam, index) => (
-                <p className='pb-2 text-sm font-regular' key={index}>{exam}</p>
+                <p className='cursor-pointer hover:underline pb-2 text-sm font-regular' key={index}>{exam}</p>
               ))}
             </div>
             <div className="text-white">
               {previousYearPapers.map((exam, index) => (
-                <p className='pb-2 text-sm font-regular pl-10' key={index}>{exam}</p>
+                <p className='cursor-pointer hover:underline pb-2 text-sm font-regular pl-10' key={index}>{exam}</p>
               ))}
             </div><div className="text-white">
               {previousYearPapers.map((exam, index) => (
-                <p className='pb-2 text-sm font-regular pl-10' key={index}>{exam}</p>
+                <p className='cursor-pointer hover:underline pb-2 text-sm font-regular pl-10' key={index}>{exam}</p>
               ))}
             </div>
           </div>
