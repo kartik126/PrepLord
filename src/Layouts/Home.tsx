@@ -48,71 +48,71 @@ const exams = [
 function Home() {
   return (
     <>
-    <Modal/>
+      <Modal />
       <Header />
+      <div style={{paddingTop:"6%"}}>
+        <SearchBanner />
 
-      <SearchBanner />
+        <div className="flex flex-row w-100">
+          <div
+            className="flex items-center justify-center "
+            style={{ width: "30%" }}
+          >
+            <AdSpace institute={instituteInfo} />
+          </div>
+          <div className=" flex justify-center" style={{ width: "70%" }}>
+            <SelectExam />
+          </div>
+        </div>
 
-      <div className="flex flex-row w-100">
-        <div
-          className="flex items-center justify-center "
-          style={{ width: "30%" }}
-        >
-          <AdSpace institute={instituteInfo} />
+        <div className="" style={{ padding: "6% 10%" }}>
+          <div className="flex flex-row justify-between items-center">
+            <h1 className="text-3xl text-gray-700 text-left font-light text-left ">
+              Popular Institutes in{" "}
+              <span className="font-normal" style={{ color: primary_color }}>
+                Your City
+              </span>{" "}
+            </h1>
+            <Button text={"View All"} link="/institutes"/>
+          </div>
+          <div className="flex flex-row justify-between py-10">
+            {cities.map((city, index) => (
+              <CityCard key={index} city={city} />
+            ))}
+          </div>
         </div>
-        <div className=" flex justify-center" style={{ width: "70%" }}>
-          <SelectExam />
+        <div className="" style={{ padding: "6% 10%" }}>
+          <div className="flex flex-row justify-between items-center">
+            <h1 className="text-3xl text-gray-700 text-left font-light text-left ">
+              Prepare yourself for{" "}
+              <span className="font-normal" style={{ color: primary_color }}>
+                Competitive Exams
+              </span>{" "}
+            </h1>
+            <Button text={"View All"} link=""/>
+          </div>
+          <div className="flex flex-row justify-between py-10">
+            {/* Examss card */}
+            {exams.map((exam, index) => (
+              <div key={index} className="flex flex-row justify-between py-10">
+                <ExamCard key={index} exam={exam} />
+              </div>
+            ))}
+          </div>
+          <div
+            className="flex flex-row justify-between"
+            style={{ marginTop: "-70px" }}
+          >
+            {/* Examss card */}
+            {exams.map((exam, index) => (
+              <div key={index} className="flex flex-row justify-between py-10">
+                <ExamCard key={index} exam={exam} />
+              </div>
+            ))}
+          </div>
         </div>
+        <EnquiryBanner />
       </div>
-
-      <div className="" style={{ padding: "6% 10%" }}>
-        <div className="flex flex-row justify-between items-center">
-          <h1 className="text-3xl text-gray-700 text-left font-light text-left ">
-            Popular Institutes in{" "}
-            <span className="font-normal" style={{ color: primary_color }}>
-              Your City
-            </span>{" "}
-          </h1>
-          <Button text={"View All"} />
-        </div>
-        <div className="flex flex-row justify-between py-10">
-          {cities.map((city, index) => (
-            <CityCard key={index} city={city} />
-          ))}
-        </div>
-      </div>
-      <div className="" style={{ padding: "6% 10%" }}>
-        <div className="flex flex-row justify-between items-center">
-          <h1 className="text-3xl text-gray-700 text-left font-light text-left ">
-            Prepare yourself for{" "}
-            <span className="font-normal" style={{ color: primary_color }}>
-              Competitive Exams
-            </span>{" "}
-          </h1>
-          <Button text={"View All"} />
-        </div>
-        <div className="flex flex-row justify-between py-10">
-          {/* Examss card */}
-          {exams.map((exam, index) => (
-            <div key={index} className="flex flex-row justify-between py-10">
-              <ExamCard key={index} exam={exam} />
-            </div>
-          ))}
-        </div>
-        <div
-          className="flex flex-row justify-between"
-          style={{ marginTop: "-70px" }}
-        >
-          {/* Examss card */}
-          {exams.map((exam, index) => (
-            <div key={index} className="flex flex-row justify-between py-10">
-              <ExamCard key={index} exam={exam} />
-            </div>
-          ))}
-        </div>
-      </div>
-      <EnquiryBanner />
-
       <Footer />
     </>
   );

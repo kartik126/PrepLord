@@ -9,7 +9,7 @@ function EnquiryBanner() {
       <div className='flex flex-col'>
     <h1 className='text-5xl font-bold text-gray-700 '>LEADING THE WAY<br/> IN PREPAREDNESS AND <br/>EXCELLENCE</h1>
     <p className='text-gray-700 py-5 text-lg'> FILL ENQUIRY FORM TO GET OUR FREE CONSULTATION</p>
-    <Button text={'Enquiry Now'}/>
+    <Button text={'Enquiry Now'} link={"/"}/>
     </div>
     <div>
     <Image src={illustration} alt='' width={400} className=''/>

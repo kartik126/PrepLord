@@ -19,11 +19,10 @@ function SearchBanner() {
               placeholder="Search Exams..."
               className="w-full py-4 pl-10 pr-4 text-gray-900 rounded-lg focus:outline-none focus:border-blue-500"
             />
-
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
            <BookOpenIcon className="text-gray-400 h-5"/>
 
-            </div>
+            Bb</div>
             <div className="absolute inset-y-0 right-6 pl-3 flex items-center pointer-events-none">
             <MagnifyingGlassIcon className="text-gray-400 h-5"/>
             </div>

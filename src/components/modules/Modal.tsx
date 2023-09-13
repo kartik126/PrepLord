@@ -3,8 +3,9 @@ import Image from "next/image";
 import React, { useState } from "react";
 import upsc from "../../../public/pngwing.com (1).png";
 import { primary_color } from "@/utils/Colors";
+import Button from "../elements/Button";
 
-const exams = ["UPSC", "GATE", "MBA", "JEE","UPSC", "GATE", "MBA", "JEE"];
+const exams = ["UPSC", "GATE", "MBA", "JEE", "UPSC", "GATE", "MBA", "JEE"];
 
 type SelectedExamIndex = number | null;
 
@@ -43,12 +44,17 @@ const Modal = () => {
               <div
                 key={index}
                 className={`flex flex-row justify-center py-5 cursor-pointer `}
-            
               >
-                <div className="w-fit h-fit bg-white py-2 px-10 rounded-[10px] flex flex-col justify-between	 items-center border border-1 shadow-lg"     style={{
-                  border:selectedExamIndex === index ? `2px solid ${primary_color}`: ""
-                }}
-                onClick={() => handleExamClick(index)}>
+                <div
+                  className="w-fit h-fit bg-white py-2 px-10 rounded-[10px] flex flex-col justify-between	 items-center border border-1 shadow-lg"
+                  style={{
+                    border:
+                      selectedExamIndex === index
+                        ? `2px solid ${primary_color}`
+                        : "",
+                  }}
+                  onClick={() => handleExamClick(index)}
+                >
                   <div className="bg-gray-100 rounded-full p-1">
                     <Image
                       className="mx-2"
@@ -58,15 +64,14 @@ const Modal = () => {
                     />
                   </div>
                   <p className="text-lg font-semibold mt-2">{exam}</p>
-                  {/* <button className="text-white px-3 py-1 rounded-lg bg-green-400 text-sm">
-                  Select
-                </button> */}
                 </div>
               </div>
             );
           })}
         </div>
-        {/* Add your modal content here */}
+        <div className="text-right mx-6">
+          <Button text={"Done"} link={"/"} />
+        </div>
       </div>
     </div>
   );

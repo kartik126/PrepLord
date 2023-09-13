@@ -25,7 +25,11 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-simple-image-slider": "^2.4.1",
+    "react-star-ratings": "^2.3.0",
     "tailwindcss": "3.3.3",
     "typescript": "5.2.2"
+  },
+  "devDependencies": {
+    "@types/react-star-ratings": "^2.3.0"
   }
 }
