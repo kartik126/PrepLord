@@ -1,8 +1,8 @@
 "use client";
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
-import { MapPinIcon, PhoneIcon } from "@heroicons/react/24/solid";
-import Header from "../../../components/modules/Header";
+import { XMarkIcon, NewspaperIcon } from "@heroicons/react/24/outline";
+import Header from "../../components/modules/Header";
 import {
   ChevronDownIcon,
   FunnelIcon,
@@ -14,11 +14,8 @@ import Footer from "@/components/modules/Footer";
 import Link from "next/link";
 import CategoryFilter from "@/components/modules/CategoryFilter";
 import MobileCategoryFilter from "@/components/modules/MobileCategoryFilter";
-import logo from "../../../../public/logo-hindi-main.webp";
-import Image from "next/image";
 import { primary_color } from "@/utils/Colors";
-import InstituteCard from "@/components/modules/InstituteCard";
-import Filters from "@/components/modules/Filters";
+import Button from "@/components/elements/Button";
 
 const colors = [
   "bg-blue-200",
@@ -39,30 +36,33 @@ const sortOptions = [
   { name: "Price: High to Low", href: "#", current: false },
 ];
 
-const ExamsSubcategory = [
+const papers = [
   {
-    name: "Comprehensive",
+    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
   },
   {
-    name: "Prelims",
+    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
   },
   {
-    name: "Mains",
+    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
   },
   {
-    name: "Essays",
+    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
   },
   {
-    name: "Ethics",
+    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
   },
   {
-    name: "Test Series",
+    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
   },
   {
-    name: "Optional",
+    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
   },
   {
-    name: "Interviews",
+    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
+  },
+  {
+    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
   },
 ];
 
@@ -70,7 +70,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Institutes({ params }: { params: { slug: string } }) {
+export default function Papers({ params }: { params: { slug: string } }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   return (
@@ -87,8 +87,8 @@ export default function Institutes({ params }: { params: { slug: string } }) {
 
           <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-              <h1 className="text-2xl uppercase font-bold tracking-tight text-gray-900">
-                {params.slug}
+              <h1 className="text-2xl uppercase font-bold tracking-tight text-gray-700">
+                Previous Year Papers
               </h1>
               <div className="flex items-center">
                 <Menu as="div" className="relative inline-block text-left">
@@ -111,7 +111,7 @@ export default function Institutes({ params }: { params: { slug: string } }) {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-20 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="py-1">
                         {sortOptions.map((option) => (
                           <Menu.Item key={option.name}>
@@ -164,17 +164,53 @@ export default function Institutes({ params }: { params: { slug: string } }) {
                 <CategoryFilter />
 
                 {/* Exams subcategories grid */}
-                <div className="lg:col-span-3">
-                  {/* Filters component  */}
-                  <Filters />
+                <div className="lg:col-span-3 bg-gray-100 h-screen overflow-auto">
                   <div className="container mx-auto p-4">
                     {/* <h1 className="text-xl">Explore all exams</h1> */}
-                    <div className="flex flex-col ">
-                      <InstituteCard />
-                      <InstituteCard />
-                      <InstituteCard />
+                    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4">
+                      {/* Map over items and apply colors */}
+                      {papers.map((item, index) => (
+                        <>
+                          <div
+                            key={index}
+                            className={`bg-white flex flex-row border border-2 cursor-pointer p-4 mb-3 text-gray-600 rounded-md`}
+                          >
+                           
+                            <div className="flex flex-col w-100">
+                            <p className="bg-green-200  text-green-700 w-fit fond-bold text-xs p-1 rounded-lg px-2">Free</p>
+                              <h1 className="pt-2 text-lg font-bold">
+                                {/* <NewspaperIcon className="w-20 pb-3 text-red-500" /> */}
+                                {item.name}
+                              </h1>
+
+                              <div className="flex flex-row pt-3">
+                                <p className="text-sm text-gray-400 mr-3">
+                                  100 Question
+                                </p>
+                                <p className="text-sm text-gray-400 mr-3">
+                                  200 Marks
+                                </p>
+                                <p className="text-sm text-gray-400 mr-3">
+                                  120 Min
+                                </p>
+                              </div>
+
+                              <div className="flex flex-row items-center justify-between pt-3">
+                                <Button text={"Download PDF"} link="" />
+                                <button
+                                  className=" rounded-lg w-fit py-1 px-12"
+                                  style={{
+                                    border: `2px solid ${primary_color}`,
+                                  }}
+                                >
+                                  Start Now
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      ))}
                     </div>
-                    
                   </div>
                 </div>
               </div>

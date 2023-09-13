@@ -10,48 +10,39 @@ import {
   FingerPrintIcon,
   SquaresPlusIcon,
   XMarkIcon,
+  BookOpenIcon
 } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
   PhoneIcon,
   PlayCircleIcon,
-  UserCircleIcon
+  UserCircleIcon,
 } from "@heroicons/react/20/solid";
 
 import preplordLogo from "../../../public/logo/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 
-const products = [
+const exams = [
   {
-    name: "Analytics",
+    name: "Upsc",
     description: "Get a better understanding of your traffic",
     href: "#",
-    icon: ChartPieIcon,
   },
   {
-    name: "Engagement",
+    name: "Gate",
     description: "Speak directly to your customers",
     href: "#",
-    icon: CursorArrowRaysIcon,
   },
   {
-    name: "Security",
+    name: "Engineering",
     description: "Your customers’ data will be safe and secure",
     href: "#",
-    icon: FingerPrintIcon,
   },
   {
-    name: "Integrations",
+    name: "Mba",
     description: "Connect with third-party tools",
     href: "#",
-    icon: SquaresPlusIcon,
-  },
-  {
-    name: "Automations",
-    description: "Build strategic funnels that will convert",
-    href: "#",
-    icon: ArrowPathIcon,
   },
 ];
 const callsToAction = [
@@ -67,7 +58,7 @@ export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white w-[100%] fixed z-20 shadow-md">
+    <header className="bg-white w-[100%] fixed z-40 shadow-md">
       <nav
         className="mx-auto flex items-center justify-between p-3 lg:px-8"
         aria-label="Global"
@@ -95,11 +86,12 @@ export default function Example() {
         </div>
 
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <a href="/" className="text-sm font-semibold leading-6 text-gray-900">
             Home
           </a>
           <Popover className="relative">
             <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
+              <a href={`exams/${'upsc'}`}></a>
               Exams
               <ChevronDownIcon
                 className="h-5 w-5 flex-none text-gray-400"
@@ -118,26 +110,26 @@ export default function Example() {
             >
               <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
                 <div className="p-4">
-                  {products.map((item) => (
+                  {exams.map((item) => (
                     <div
                       key={item.name}
-                      className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+                      className="group relative flex items-center gap-x-6 rounded-lg p-3 text-sm leading-6 hover:bg-gray-50"
                     >
                       <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                        <item.icon
-                          className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
+                        <BookOpenIcon
+                          className="h-6 w-6 text-gray-600 group-hover:text-blue-900"
                           aria-hidden="true"
                         />
                       </div>
                       <div className="flex-auto">
+
                         <a
-                          href={item.href}
-                          className="block font-semibold text-gray-900"
+                          href={`exams/${item.name}`}
+                          className="block font-semibold text-gray-900 hover:text-blue-900"
                         >
                           {item.name}
                           <span className="absolute inset-0" />
                         </a>
-                        <p className="mt-1 text-gray-600">{item.description}</p>
                       </div>
                     </div>
                   ))}
@@ -161,22 +153,38 @@ export default function Example() {
             </Transition>
           </Popover>
 
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <a
+            href="/topper-corner"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
             Topper Corner
           </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <a
+            href="/previous-year-papers"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
             Previous Year Papers
           </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <a
+            href="/mocks"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
             Free Mock
           </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-           Job Alerts
+          <a
+            href="/job-alerts"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
+            Job Alerts
           </a>
         </Popover.Group>
         <div className="hidden  lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="flex flex-row items-center justify-between text-sm bg-[#205383] font-semibold leading-6 text-white p-3 rounded-lg">
-           <UserCircleIcon className="h-5 w-7"/>  Log in <span aria-hidden="true"></span>
+          <a
+            href="#"
+            className="flex flex-row items-center justify-between text-sm bg-[#205383] font-semibold leading-6 text-white p-3 rounded-lg"
+          >
+            <UserCircleIcon className="h-5 w-7" /> Log in{" "}
+            <span aria-hidden="true"></span>
           </a>
         </div>
       </nav>
@@ -223,7 +231,7 @@ export default function Example() {
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel className="mt-2 space-y-2">
-                        {[...products, ...callsToAction].map((item) => (
+                        {[...exams, ...callsToAction].map((item) => (
                           <Disclosure.Button
                             key={item.name}
                             as="a"

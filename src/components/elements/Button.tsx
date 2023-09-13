@@ -13,7 +13,7 @@ function Button({ text, link }: buttonInfo) {
     <Link href={link}>
       <button
         className="px-8 py-2 w-fit text-white rounded-lg"
-        style={{ background: primary_color }}
+        style={{ background: primary_color ,whiteSpace:'nowrap'}}
       >
         {text}
       </button>
