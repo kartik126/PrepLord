@@ -20,7 +20,7 @@ function page() {
         <div className="h-40 bg-gradient-to-r from-green-200 via-purple-200 to-blue-400 flex flex-row items-center justify-center">
           <Image src={topIcon} alt="" width={60} />
           <h1 className="text-4xl font-bold text-gray-700 text-center">
-            TOPPER'S CORNER
+            TOPPER&apos;S CORNER
           </h1>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-10">
