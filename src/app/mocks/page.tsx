@@ -4,6 +4,11 @@ function page() {
   return (
     <>
     <Header/>
+    <div>
+      <div className='border border-1 h-40'>
+
+      </div>
+    </div>
     </>
   )
 }
