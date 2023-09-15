@@ -23,6 +23,7 @@ function page() {
             TOPPER&apos;S CORNER
           </h1>
         </div>
+        <div className="md:w-[80%] lg:w-[70%] w-full ">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-10">
           <TopperCard {...toppersDetails}/>
           <TopperCard {...toppersDetails}/>
@@ -30,6 +31,7 @@ function page() {
           <TopperCard {...toppersDetails}/>
           <TopperCard {...toppersDetails}/>
           <TopperCard {...toppersDetails}/>
+        </div>
         </div>
       </div>
       <Footer/>

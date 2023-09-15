@@ -3,15 +3,14 @@ import React from "react";
 import user from "../../../public/user.jpeg";
 import { primary_color } from "@/utils/Colors";
 
-interface TopperProps{
+interface TopperProps {
   name: string;
   exam: string;
-  year: string
-  rank: string
-
+  year: string;
+  rank: string;
 }
 
-function TopperCard({name,exam,year,rank}:TopperProps) {
+function TopperCard({ name, exam, year, rank }: TopperProps) {
   return (
     <>
       <div className="mb-8 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -83,7 +82,7 @@ function TopperCard({name,exam,year,rank}:TopperProps) {
           <div className="flex mt-4 space-x-3 md:mt-6">
             <a
               className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:outline-none "
-              style={{background:primary_color}}
+              style={{ background: primary_color }}
             >
               Rank {rank}
             </a>

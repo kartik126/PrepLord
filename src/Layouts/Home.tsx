@@ -16,6 +16,8 @@ import mumbai from "../../public/cities/mumbai.jpeg";
 import chandigarh from "../../public/cities/chandigarh.jpeg";
 import ExamCard from "@/components/modules/ExamCard";
 import Modal from "@/components/modules/Modal";
+import { useRecoilValue } from "recoil";
+import Slider from "@/components/modules/Slider";
 
 const instituteInfo = {
   name: "Sample Institute",
@@ -45,6 +47,12 @@ const exams = [
   // "DFCCIL EXECUTIVE",
   // "EMRS TGTR"
 ];
+const examCategories = [
+  { title: 'Category 1', image: 'category1.jpg' },
+  { title: 'Category 2', image: 'category2.jpg' },
+  { title: 'Category 3', image: 'category3.jpg' },
+  // Add more categories as needed
+];
 function Home() {
   return (
     <>
@@ -52,8 +60,7 @@ function Home() {
       <Header />
       <div style={{ paddingTop: "6%" }}>
         <SearchBanner />
-
-        <div className="flex flex-row w-100">
+        <div className="flex flex-row w-100 pt-20">
           <div
             className="flex items-center justify-center "
             style={{ width: "30%" }}
@@ -64,6 +71,7 @@ function Home() {
             <SelectExam />
           </div>
         </div>
+        <Slider />
 
         <div className="" style={{ padding: "6% 10%" }}>
           <div className="flex flex-row justify-between items-center">
