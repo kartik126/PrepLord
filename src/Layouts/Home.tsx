@@ -50,7 +50,7 @@ function Home() {
     <>
       <Modal />
       <Header />
-      <div style={{paddingTop:"6%"}}>
+      <div style={{ paddingTop: "6%" }}>
         <SearchBanner />
 
         <div className="flex flex-row w-100">
@@ -73,7 +73,7 @@ function Home() {
                 Your City
               </span>{" "}
             </h1>
-            <Button text={"View All"} link="/institutes"/>
+            <Button text={"View All"} link="/institutes" />
           </div>
           <div className="flex flex-row justify-between py-10">
             {cities.map((city, index) => (
@@ -89,7 +89,7 @@ function Home() {
                 Competitive Exams
               </span>{" "}
             </h1>
-            <Button text={"View All"} link=""/>
+            <Button text={"View All"} link="" />
           </div>
           <div className="flex flex-row justify-between py-10">
             {/* Examss card */}
