@@ -6,11 +6,11 @@ import TopperCard from "@/components/modules/TopperCard";
 import Footer from "@/components/modules/Footer";
 
 const toppersDetails = {
-  name:"JAGRATI AWASTHI",
-  exam :"Civil Services Exam",
-  year:"2020",
-  rank:"1"
-}
+  name: "JAGRATI AWASTHI",
+  exam: "Civil Services Exam",
+  year: "2020",
+  rank: "1",
+};
 
 function page() {
   return (
@@ -24,17 +24,17 @@ function page() {
           </h1>
         </div>
         <div className="md:w-[80%] lg:w-[70%] w-full ">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-10">
-          <TopperCard {...toppersDetails}/>
-          <TopperCard {...toppersDetails}/>
-          <TopperCard {...toppersDetails}/>
-          <TopperCard {...toppersDetails}/>
-          <TopperCard {...toppersDetails}/>
-          <TopperCard {...toppersDetails}/>
-        </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 p-10">
+            <TopperCard {...toppersDetails} />
+            <TopperCard {...toppersDetails} />
+            <TopperCard {...toppersDetails} />
+            <TopperCard {...toppersDetails} />
+            <TopperCard {...toppersDetails} />
+            <TopperCard {...toppersDetails} />
+          </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }
