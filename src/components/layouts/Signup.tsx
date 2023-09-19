@@ -1,3 +1,4 @@
+"use client"
 import { primary_color } from "@/utils/Colors";
 import React, { useState } from "react";
 
