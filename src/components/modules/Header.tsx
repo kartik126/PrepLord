@@ -23,29 +23,13 @@ import preplordLogo from "../../../public/logo/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import Login from "../layouts/Login";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { exams } from "@/recoil/store";
 
-const exams = [
-  {
-    name: "Upsc",
-    description: "Get a better understanding of your traffic",
-    href: "#",
-  },
-  {
-    name: "Gate",
-    description: "Speak directly to your customers",
-    href: "#",
-  },
-  {
-    name: "Engineering",
-    description: "Your customers’ data will be safe and secure",
-    href: "#",
-  },
-  {
-    name: "Mba",
-    description: "Connect with third-party tools",
-    href: "#",
-  },
-];
+interface examList {
+  name: string;
+}
+
 const callsToAction = [
   { name: "Watch demo", href: "#", icon: PlayCircleIcon },
   { name: "Contact sales", href: "#", icon: PhoneIcon },
@@ -56,6 +40,7 @@ function classNames(...classes: any) {
 }
 
 export default function Example() {
+  const examList = useRecoilValue(exams);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [open, setopen] = useState(false);
 
@@ -117,7 +102,7 @@ export default function Example() {
               >
                 <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
                   <div className="p-4">
-                    {exams.map((item) => (
+                    {examList.map((item:examList) => (
                       <div
                         key={item.name}
                         className="group relative flex items-center gap-x-6 rounded-lg p-3 text-sm leading-6 hover:bg-gray-50"
@@ -238,7 +223,7 @@ export default function Example() {
                           />
                         </Disclosure.Button>
                         <Disclosure.Panel className="mt-2 space-y-2">
-                          {[...exams, ...callsToAction].map((item) => (
+                          {[...examList, ...callsToAction].map((item) => (
                             <Disclosure.Button
                               key={item.name}
                               as="a"
