@@ -1,17 +1,18 @@
 import mongoose from "mongoose";
-import { writeFile } from "fs/promises";
+import { GridFSBucket } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import Papers from "../../../models/Papers";
 import { connect } from "@/dbConfig/dbConfig";
 
 connect();
 
+const conn = mongoose.connection; // Get the Mongoose connection
+
 export async function POST(request: NextRequest) {
-  
   const data = await request.formData();
 
   const files = data.getAll("file");
-  const examName = data.get("examName"); // Assuming you have an input field named 'examName' in your form
+  const examName = data.get("examName");
 
   if (!files || !examName) {
     return NextResponse.json({
@@ -21,31 +22,41 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    // Create an array to store the documents for each file
     const papersDocs = [];
 
     for (const file of files) {
       if (file instanceof File) {
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-
-        const paper = {
-          name: file.name, // Assuming the file name should be saved as 'name'
-          type: file.type, // Assuming the file type should be saved as 'type'
-          size: file.size, // Assuming the file size should be saved as 'size'
-          data: buffer,
+        const paper: {
+          name: string;
+          type: string;
+          size: number;
+          mongoId?: any; // Make mongoId optional by adding '?'
+        } = {
+          name: file.name,
+          type: file.type,
+          size: file.size,
         };
+
+        // Read the file content and save it to MongoDB as a GridFS file
+        const paperId = await saveFileToMongoDB(file);
+
+        if (!paperId) {
+          return NextResponse.json({
+            success: false,
+            message: "Error saving file to MongoDB",
+          });
+        }
+
+        paper.mongoId = paperId;
         papersDocs.push(paper);
       }
     }
 
-    // Create a new Papers document with all the papers
     const papersDoc = new Papers({
       exam_name: examName,
       papers: papersDocs,
     });
 
-    // Save the document to MongoDB
     await papersDoc.save();
 
     return NextResponse.json({
@@ -61,19 +72,32 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET(request : NextRequest){
+async function saveFileToMongoDB(file:any) {
+  return new Promise((resolve, reject) => {
+    const bucket = new GridFSBucket(conn.db, {
+      bucketName: "exam-papers", // Replace with your bucket name
+    });
 
-  const data = await request.formData();
+    const uploadStream = bucket.openUploadStream(file.name);
 
+    // Read the file content and pipe it to the upload stream
+    const reader = file.stream().getReader();
 
-  const exam_id = data.get("exam_id"); 
+    reader.read().then(function process({ done, value }:any) {
+      if (done) {
+        // Done reading the file
+        uploadStream.end();
 
-  try {
-    
-    const getPapers = await Papers.findById({})
-  } catch (error) {
-    
-  }
+        // Resolve with the MongoDB ObjectId for the saved GridFS file
+        resolve(uploadStream.id);
+        return;
+      }
 
+      // Write the file content to the GridFS upload stream
+      uploadStream.write(value);
 
+      return reader.read().then(process);
+    });
+  });
 }
+

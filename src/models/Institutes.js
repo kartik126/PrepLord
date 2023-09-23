@@ -12,7 +12,7 @@ const instituteSchema = new mongoose.Schema({
   },
   city: String,
   locality: String,
-  class_Mode: String,
+  class_mode: String,
   language: String,
   price: String,
   rating: String,
