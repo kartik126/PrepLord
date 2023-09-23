@@ -5,10 +5,6 @@ import { NextResponse } from "next/server";
 connect();
 
 export async function POST(request: Request, { params }: any) {
-  console.log(
-    "paramsshajdhfjhsdjhfgshj====================================================>",
-    params
-  );
   try {
     const data = await request.formData();
 
