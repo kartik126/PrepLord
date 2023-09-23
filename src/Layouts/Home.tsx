@@ -1,3 +1,4 @@
+"use client";
 import AdSpace from "@/components/modules/AdSpace";
 import Footer from "@/components/modules/Footer";
 import Header from "@/components/modules/Header";
@@ -5,7 +6,7 @@ import SearchBanner from "@/components/modules/SearchBanner";
 import SelectExam from "@/components/modules/SelectExam";
 import img1 from "../../public/home slider/White Blue Professional Website Developer LinkedIn Banner.png";
 
-import React from "react";
+import React, { useEffect } from 'react';
 import Image from "next/image";
 import { primary_color } from "@/utils/Colors";
 import Button from "@/components/elements/Button";
@@ -16,8 +17,9 @@ import mumbai from "../../public/cities/mumbai.jpeg";
 import chandigarh from "../../public/cities/chandigarh.jpeg";
 import ExamCard from "@/components/modules/ExamCard";
 import Modal from "@/components/modules/Modal";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import Slider from "@/components/modules/Slider";
+import { exams } from "@/recoil/store";
 
 const instituteInfo = {
   name: "Sample Institute",
@@ -33,27 +35,32 @@ const cities = [
   { name: "Mumbai", image: mumbai },
   { name: "Delhi", image: delhi },
 ];
-const exams = [
-  "UGC NET",
-  "SSC JE",
-  "SBI CLERK",
-  "RBI ASSISTANT",
-  "RRB JE",
-  "IBPS SO",
-  // "BPSC EXAM",
-  // "INDIAN NAVY SSR",
-  // "UPSSSC VDO",
-  // "INDIAN NAVY CHARGEMAN",
-  // "DFCCIL EXECUTIVE",
-  // "EMRS TGTR"
-];
+// const exams = [
+//   "UGC NET",
+//   "SSC JE",
+//   "SBI CLERK",
+//   "RBI ASSISTANT",
+//   "RRB JE",
+//   "IBPS SO",
+//   // "BPSC EXAM",
+//   // "INDIAN NAVY SSR",
+//   // "UPSSSC VDO",
+//   // "INDIAN NAVY CHARGEMAN",
+//   // "DFCCIL EXECUTIVE",
+//   // "EMRS TGTR"
+// ];
 const examCategories = [
   { title: 'Category 1', image: 'category1.jpg' },
   { title: 'Category 2', image: 'category2.jpg' },
   { title: 'Category 3', image: 'category3.jpg' },
   // Add more categories as needed
 ];
-function Home() {
+function Home({data}:any) {
+  
+  const setExams = useSetRecoilState(exams);
+  useEffect(()=>{
+    setExams(data);
+  },[])
   return (
     <>
       <Modal />
@@ -101,22 +108,22 @@ function Home() {
           </div>
           <div className="flex flex-row justify-between py-10">
             {/* Examss card */}
-            {exams.map((exam, index) => (
+            {/* {exams?.map((exam, index) => (
               <div key={index} className="flex flex-row justify-between py-10">
                 <ExamCard key={index} exam={exam} />
               </div>
-            ))}
+            ))} */}
           </div>
           <div
             className="flex flex-row justify-between"
             style={{ marginTop: "-70px" }}
           >
             {/* Examss card */}
-            {exams.map((exam, index) => (
+            {/* {exams?.map((exam, index) => (
               <div key={index} className="flex flex-row justify-between py-10">
                 <ExamCard key={index} exam={exam} />
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
         <EnquiryBanner />

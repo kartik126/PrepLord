@@ -2,14 +2,19 @@
 import { atom } from 'recoil';
 
 export const cities = atom({
-  key: 'cities', 
-  default: [], 
+  key: 'cities',
+  default: [],
 });
 
 export const exams = atom({
-    key: 'exams', 
-    default: [], 
+  key: 'exams',
+  default: [],
 });
+
+export const myExam = atom({
+  key: 'myExam',
+  default: '',
+})
 
 export const firstNameState = atom({
   key: 'firstNameState',
