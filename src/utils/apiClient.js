@@ -1,12 +1,13 @@
-export const localBaseUrl = 'https://localhost:3000/';
-export const localImgUrl = 'https://localhost:3000/';
+export const localBaseUrl = 'https://preplord.vercel.app/';
+export const localImgUrl = 'https://preplord.vercel.app/';
 export const BaseUrl = 'https://preplord.com/';
 export const ImgUrl = 'https://preplord.com/';
 
 const apiClient = {
   Urls: {
     localImgUrl,
-    login:'api/login'
+    login:'api/login',
+    getExams:'api/exams'
   },
 
   make: function (url, method, params) {
@@ -38,7 +39,7 @@ const apiClient = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     }
-    if (params.authToken) {
+    if (params?.authToken) {
       headers['Authorization'] = `Bearer ${params.authToken}`
     }
     return fetch(localBaseUrl + url, {

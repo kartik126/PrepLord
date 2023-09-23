@@ -1,11 +1,13 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import upsc from "../../../public/pngwing.com (1).png";
 import { primary_color } from "@/utils/Colors";
 import Button from "../elements/Button";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { exams, myExam } from "@/recoil/store";
 
-const exams = ["UPSC", "GATE", "MBA", "JEE", "UPSC", "GATE", "MBA", "JEE"];
+// const exams = ["UPSC", "GATE", "MBA", "JEE", "UPSC", "GATE", "MBA", "JEE"];
 
 type SelectedExamIndex = number | null;
 
@@ -13,13 +15,17 @@ const Modal = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [selectedExamIndex, setSelectedExamIndex] =
     useState<SelectedExamIndex>(null);
+    const setSelectedExam = useSetRecoilState(myExam);
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
+  const exam = useRecoilValue(exams);
+  const selectedExam = useRecoilState(myExam);
   const handleExamClick = (index: number) => {
     setSelectedExamIndex(index);
+    setSelectedExam(exam[index].name);
+    console.log(selectedExam)
   };
 
   return (
@@ -36,10 +42,10 @@ const Modal = () => {
           &#x2715;
         </button>
         <h2 className="text-2xl font-normal mb-4 text-center">
-          Choose Your Exam
+          Choose Your Exam {selectedExam}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
-          {exams.map((exam, index) => {
+          {exam.map((key , index) => {
             return (
               <div
                 key={index}
@@ -63,7 +69,7 @@ const Modal = () => {
                       width={17}
                     />
                   </div>
-                  <p className="text-lg font-semibold mt-2">{exam}</p>
+                  <p className="text-lg font-semibold mt-2">{key.name}</p>
                 </div>
               </div>
             );
