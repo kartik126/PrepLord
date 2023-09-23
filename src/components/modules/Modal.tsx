@@ -11,21 +11,28 @@ import { exams, myExam } from "@/recoil/store";
 
 type SelectedExamIndex = number | null;
 
+interface examInterface {
+  name: string;
+}
+
 const Modal = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [selectedExamIndex, setSelectedExamIndex] =
     useState<SelectedExamIndex>(null);
-    const setSelectedExam = useSetRecoilState(myExam);
+  const setSelectedExam = useSetRecoilState(myExam);
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  const exam = useRecoilValue(exams);
-  const selectedExam = useRecoilState(myExam);
+  
+  const exam: any = useRecoilValue(exams);
+  const selectedExam: any = useRecoilState(myExam);
+
+
   const handleExamClick = (index: number) => {
     setSelectedExamIndex(index);
-    setSelectedExam(exam[index].name);
-    console.log(selectedExam)
+    setSelectedExam(exam[index]._id);
+    console.log(selectedExam);
   };
 
   return (
@@ -42,10 +49,10 @@ const Modal = () => {
           &#x2715;
         </button>
         <h2 className="text-2xl font-normal mb-4 text-center">
-          Choose Your Exam {selectedExam}
+          Choose Your Exam
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
-          {exam.map((key , index) => {
+          {exam.map((key: examInterface, index: number) => {
             return (
               <div
                 key={index}
@@ -76,7 +83,13 @@ const Modal = () => {
           })}
         </div>
         <div className="text-right mx-6">
-          <Button text={"Done"} link={"/"} />
+          <button
+            className="text-white p-3 px-7 rounded-lg"
+            style={{ background: primary_color }}
+            onClick={closeModal}
+          >
+            Select
+          </button>
         </div>
       </div>
     </div>
