@@ -34,7 +34,7 @@ function SelectExam() {
             {exam.map((key: examInterface, index) => {
               const id = key._id;
               return (
-                <div className="flex flex-row justify-center py-10 cursor-pointer">
+                <div key={index} className="flex flex-row justify-center py-10 cursor-pointer">
                   <div
                     className="w-[170px] h-[170px] bg-white py-5 rounded-[15px] flex flex-col justify-between items-center border border-1 shadow-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:scale-105"
                     style={{

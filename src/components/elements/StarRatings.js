@@ -5,7 +5,7 @@ import StarRatings from "react-star-ratings";
 function StarRating() {
   const [rating, setRating] = useState(0);
 
-  const handleRatingChange = (newRating: any) => {
+  const handleRatingChange = (newRating) => {
     setRating(newRating);
   };
   const ratingPercentage = (rating / 5) * 100;

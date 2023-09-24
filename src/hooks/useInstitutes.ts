@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import apiClient from "@/utils/apiClient";
+import apiClient, { localBaseUrl } from "@/utils/apiClient";
 
-const apiUrl = apiClient.Urls.getInstitutes;
+const apiUrl = localBaseUrl + apiClient.Urls.getInstitutes;
 
 export function useInstitutes() {
   const [institutes, setInstitutes] = useState([]);
