@@ -8,7 +8,7 @@ const apiClient = {
     localImgUrl,
     login:'api/login',
     getExams:'api/exams',
-    getInstitutes:'api/institutes'
+    getInstitutes:'api/get-institutes'
   },
 
   make: function (url, method, params) {

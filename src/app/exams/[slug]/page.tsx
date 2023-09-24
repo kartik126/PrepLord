@@ -14,6 +14,7 @@ import Footer from "@/components/modules/Footer";
 import Link from "next/link";
 import CategoryFilter from "@/components/modules/CategoryFilter";
 import MobileCategoryFilter from "@/components/modules/MobileCategoryFilter";
+import { useInstitutes } from "@/hooks/useInstitutes";
 
 const colors = [
   "bg-blue-200",
@@ -67,6 +68,8 @@ function classNames(...classes: any) {
 
 export default function Exams({ params }: { params: { slug: string } }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
+
 
   return (
     <>

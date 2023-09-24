@@ -7,23 +7,21 @@ connect();
 export async function POST(request: Request) {
   console.log("request=================================>", request);
   try {
-    const req = (await request?.formData()) || null;
+    const requestBody = await request.json(); // Parse JSON data from the request body
+
     const filters: any = {};
 
-    const all = req?.getAll("all");
-    const city = req?.getAll("city");
-    const class_mode = req?.getAll("class_mode");
-    const language = req?.getAll("language");
+    const { city, class_mode, language } = requestBody;
 
-    if (city.length > 0) {
-      filters.city = { $in: city }; // Use $in for filtering by an array of values
+    if (city && city.length > 0) {
+      filters.city = { $in: city };
     }
 
-    if (class_mode.length > 0) {
+    if (class_mode && class_mode.length > 0) {
       filters.class_mode = { $in: class_mode };
     }
 
-    if (language.length > 0) {
+    if (language && language.length > 0) {
       filters.language = { $in: language };
     }
 

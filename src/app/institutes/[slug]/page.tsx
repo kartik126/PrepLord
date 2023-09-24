@@ -19,6 +19,7 @@ import Image from "next/image";
 import { primary_color } from "@/utils/Colors";
 import InstituteCard from "@/components/modules/InstituteCard";
 import Filters from "@/components/modules/Filters";
+import { useInstitutes } from "@/hooks/useInstitutes";
 
 const colors = [
   "bg-blue-200",
@@ -71,8 +72,12 @@ function classNames(...classes: any) {
 }
 
 export default function Institutes({ params }: { params: { slug: string } }) {
+
+  const institutes = useInstitutes()
+
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
+  console.log("institeue",institutes);
   return (
     <>
       <Header />
