@@ -5,15 +5,15 @@ import apiClient, { localBaseUrl } from "@/utils/apiClient";
 
 const apiUrl = localBaseUrl + apiClient.Urls.getInstitutes;
 
-export function useInstitutes() {
+export function useInstitutes(
+  city?: string,
+  class_mode?: string,
+  language?: string
+) {
   const [institutes, setInstitutes] = useState([]);
 
   useEffect(() => {
-    async function fetchExams(
-      city?: string,
-      class_mode?: string,
-      language?: string
-    ) {
+    async function fetchExams() {
       try {
         const requestData = {
           city: city || "",
@@ -22,19 +22,10 @@ export function useInstitutes() {
           all: "all",
         };
 
-        const response = await fetch(apiUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json", // Set the content type to JSON
-          },
-          body: JSON.stringify(requestData), // Convert request data to JSON
+        const res = await apiClient.post(`${apiClient.Urls.getInstitutes}`, {
+          requestData,
         });
-
-        if (!response.ok) {
-          throw new Error(`Request failed with status: ${response.status}`);
-        }
-
-        const data = await response.json();
+        const data = res.data;
 
         setInstitutes(data);
 

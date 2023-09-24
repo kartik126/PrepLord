@@ -18,7 +18,6 @@ export default function Page() {
   // const selectedExam = localStorage.getItem("myExamId");
 
   const getExams = useExams();
-  console.log("hooooook", getExams);
 
   return (
     <>
