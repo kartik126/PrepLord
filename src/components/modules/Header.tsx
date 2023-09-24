@@ -24,7 +24,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Login from "../layouts/Login";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { exams } from "@/recoil/store";
+import { useExams } from "@/hooks/useExams";
 
 interface examList {
   name: string;
@@ -40,7 +40,8 @@ function classNames(...classes: any) {
 }
 
 export default function Example() {
-  const examList = useRecoilValue(exams);
+  const examList = useExams();
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [open, setopen] = useState(false);
 
@@ -83,7 +84,7 @@ export default function Example() {
             </a>
             <Popover className="relative">
               <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
-                <a href={`exams/${"upsc"}`}></a>
+                <Link href={`exams/${"upsc"}`}></Link>
                 Exams
                 <ChevronDownIcon
                   className="h-5 w-5 flex-none text-gray-400"
@@ -102,7 +103,7 @@ export default function Example() {
               >
                 <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
                   <div className="p-4">
-                    {examList.map((item:examList) => (
+                    {examList.map((item: examList) => (
                       <div
                         key={item.name}
                         className="group relative flex items-center gap-x-6 rounded-lg p-3 text-sm leading-6 hover:bg-gray-50"
@@ -144,18 +145,18 @@ export default function Example() {
               </Transition>
             </Popover>
 
-            <a
+            <Link
               href="/topper-corner"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Topper Corner
-            </a>
-            <a
+            </Link>
+            <Link
               href="/previous-year-papers"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Previous Year Papers
-            </a>
+            </Link>
             <a
               href="/mocks"
               className="text-sm font-semibold leading-6 text-gray-900"

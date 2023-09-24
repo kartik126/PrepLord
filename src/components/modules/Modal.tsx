@@ -23,15 +23,16 @@ const Modal = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    localStorage.setItem('modalShown', 'true');
   };
-  
+
   const exam: any = useRecoilValue(exams);
   const selectedExam: any = useRecoilState(myExam);
-
 
   const handleExamClick = (index: number) => {
     setSelectedExamIndex(index);
     setSelectedExam(exam[index]._id);
+    localStorage.setItem("myExamId", exam[index]._id);
     console.log(selectedExam);
   };
 
