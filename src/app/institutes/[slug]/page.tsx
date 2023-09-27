@@ -72,12 +72,12 @@ function classNames(...classes: any) {
 }
 
 export default function Institutes({ params }: { params: { slug: string } }) {
-
-  const institutes = useInstitutes()
+  const institutes = useInstitutes();
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  console.log("institeue",institutes);
+  console.log("institeue", institutes);
+
   return (
     <>
       <Header />
@@ -179,7 +179,6 @@ export default function Institutes({ params }: { params: { slug: string } }) {
                       <InstituteCard />
                       <InstituteCard />
                     </div>
-                    
                   </div>
                 </div>
               </div>

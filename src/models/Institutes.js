@@ -1,10 +1,5 @@
 import mongoose from "mongoose";
 
-const imagesSchema = new mongoose.Schema({
-  type: String,
-  image: String,
-});
-
 const instituteSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -18,8 +13,10 @@ const instituteSchema = new mongoose.Schema({
   rating: String,
   address: String,
   phone: String,
-  images: [imagesSchema],
+  image_url: String
 });
+
+
 
 const Institute =
   mongoose.models.Institute || mongoose.model("Institute", instituteSchema);

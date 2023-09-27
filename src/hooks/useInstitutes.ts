@@ -25,7 +25,7 @@ export function useInstitutes(
         const res = await apiClient.post(`${apiClient.Urls.getInstitutes}`, {
           requestData,
         });
-        const data = res.data;
+        const data = res;
 
         setInstitutes(data);
 

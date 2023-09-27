@@ -7,6 +7,7 @@ import TopperCard from "@/components/modules/TopperCard";
 import Footer from "@/components/modules/Footer";
 import { exams, myExam } from "@/recoil/store";
 import { useExams } from "@/hooks/useExams";
+import { useInstitutes } from "@/hooks/useInstitutes";
 
 interface examInterface {
   _id: string;

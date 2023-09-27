@@ -67,8 +67,8 @@ function classNames(...classes: any) {
 }
 
 export default function Exams({ params }: { params: { slug: string } }) {
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
 
   return (
