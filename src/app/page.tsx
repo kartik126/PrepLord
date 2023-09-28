@@ -13,6 +13,7 @@ async function getData() {
 
 export default async function page() {
   const data = await getData();  
+  
   return (
     <>
       <Home data={data} />

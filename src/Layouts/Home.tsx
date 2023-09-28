@@ -20,6 +20,7 @@ import Modal from "@/components/modules/Modal";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import Slider from "@/components/modules/Slider";
 import { exams } from "@/recoil/store";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const instituteInfo = {
   name: "Sample Institute",
@@ -58,12 +59,20 @@ const examCategories = [
 function Home({data}:any) {
   
   const setExams = useSetRecoilState(exams);
+
+  const {data:session,status} = useSession();
+
+  console.dir("session:" + JSON.stringify(session));
+
   useEffect(()=>{
     setExams(data);
   },[])
   return (
     <>
       <Modal />
+      {/* <button onClick={()=>signOut()}>
+      signin {session?.user?.name}
+      </button> */}
       <Header />
       <div style={{ paddingTop: "6%" }}>
         <SearchBanner />

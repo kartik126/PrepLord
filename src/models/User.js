@@ -2,7 +2,6 @@ import { Schema, model, SchemaTypes,mongoose } from "mongoose";
 
 let userSchema = new Schema({
   name: {
-    required: true,
     type: String,
   },
   email: {
@@ -16,7 +15,6 @@ let userSchema = new Schema({
   },
   phone: {
     type: String,
-    required: true,
   },
 });
 

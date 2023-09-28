@@ -25,6 +25,7 @@ import Link from "next/link";
 import Login from "../layouts/Login";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useExams } from "@/hooks/useExams";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 interface examList {
   name: string;
@@ -42,12 +43,16 @@ function classNames(...classes: any) {
 export default function Example() {
   const examList = useExams();
 
+  const { data: session, status } = useSession();
+
+  console.log("statusss", status);
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [open, setopen] = useState(false);
 
   return (
     <>
-      <Login open={open} setopen={setopen} />
+      {/* <Login open={open} setopen={setopen} /> */}
       <header className="bg-white w-[100%] fixed z-40 shadow-md">
         <nav
           className="mx-auto flex items-center justify-between p-3 lg:px-8"
@@ -170,16 +175,43 @@ export default function Example() {
               Job Alerts
             </a>
           </Popover.Group>
-          <div className="hidden  lg:flex lg:flex-1 lg:justify-end">
-            <a
-              href="#"
-              className="flex flex-row items-center justify-between text-sm bg-[#205383] font-semibold leading-6 text-white p-3 rounded-lg"
-              onClick={() => setopen(!open)}
-            >
-              <UserCircleIcon className="h-5 w-7" /> Log in{" "}
-              <span aria-hidden="true"></span>
-            </a>
-          </div>
+          {status === "authenticated" ? (
+            <>
+              <div className="hidden  lg:flex lg:flex-1 lg:justify-end">
+                <a
+                  href="#"
+                  className="flex flex-row items-center justify-between text-sm bg-[#205383] font-semibold leading-6 text-white p-3 rounded-lg"
+                >
+                  <Image
+                    className="rounded-full mr-2"
+                    src={session?.user?.image || ""}
+                    width={25}
+                    height={25}
+                    alt=""
+                  />{" "}
+                  {session?.user?.name} <span aria-hidden="true"></span>
+                </a>
+                {/* <a
+                  href="#"
+                  className="flex flex-row items-center justify-between text-sm bg-white font-semibold leading-6 text-[#205383] border border-2 border-[#205383] p-3 rounded-lg"
+                  onClick={() => signOut()}
+                >
+                 Logout
+                </a> */}
+              </div>
+            </>
+          ) : (
+            <div className="hidden  lg:flex lg:flex-1 lg:justify-end">
+              <a
+                href="#"
+                className="flex flex-row items-center justify-between text-sm bg-[#205383] font-semibold leading-6 text-white p-3 rounded-lg"
+                onClick={() => signIn()}
+              >
+                <UserCircleIcon className="h-5 w-7" /> Log in{" "}
+                <span aria-hidden="true"></span>
+              </a>
+            </div>
+          )}
         </nav>
         <Dialog
           as="div"
@@ -257,14 +289,25 @@ export default function Example() {
                     Company
                   </a>
                 </div>
-                <div className="py-6">
-                  <button
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900  hover:bg-gray-50"
-                    onClick={() => alert("cliekced")}
-                  >
-                    Log in
-                  </button>
-                </div>
+                {status === "authenticated" ? (
+                  <div className="py-6">
+                    <button
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900  hover:bg-gray-50"
+                      onClick={() => alert("cliekced")}
+                    >
+                      {session?.user?.name}
+                    </button>
+                  </div>
+                ) : (
+                  <div className="py-6">
+                    <button
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900  hover:bg-gray-50"
+                      onClick={() => alert("cliekced")}
+                    >
+                      Log in
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </Dialog.Panel>
