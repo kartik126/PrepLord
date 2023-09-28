@@ -3,6 +3,7 @@ import { v2 as cloudinary } from "cloudinary";
 import { config as cloudinaryConfig } from "../../../utils/cloudinary";
 import streamifier from "streamifier";
 import { UploadApiResponse } from "cloudinary";
+import fs from "fs";
 
 cloudinary.config(cloudinaryConfig);
 
@@ -12,7 +13,7 @@ async function uploadImageToCloudinary(
 ): Promise<string> {
   return new Promise<string>((resolve: any, reject) => {
     const cld_upload_stream = cloudinary.uploader.upload_stream(
-      { folder: 'Home/images' }, // Use the provided folder name
+      { folder: "Home/images" }, // Use the provided folder name
       function (error, result) {
         if (error) {
           console.error("Error uploading to Cloudinary:", error);
@@ -28,34 +29,21 @@ async function uploadImageToCloudinary(
   });
 }
 
-export async function POST(request: NextRequest) {
-  try {
-    const formData = await request.formData();
-    const file = formData.get("file") as Blob | null;
-    if (!file) {
-      return NextResponse.json(
-        { error: "File blob is required." },
-        { status: 400 }
-      );
+export async function POST(req: Request) {
+  const formData = await req.formData();
+
+  const image = formData.getAll("images");
+  const formDataEntryValues = Array.from(image.values());
+
+  for (const formDataEntryValue of formDataEntryValues) {
+    if (
+      typeof formDataEntryValue === "object" &&
+      "arrayBuffer" in formDataEntryValue
+    ) {
+      const file = formDataEntryValue as unknown as Blob;
+      const buffer = Buffer.from(await file.arrayBuffer());
+      console.log("*******************************", buffer);
     }
-
-    const mimeType = file.type;
-    const fileExtension = mimeType.split("/")[1];
-
-    const buffer = Buffer.from(await file.arrayBuffer());
-
-    const imageUrl = await uploadImageToCloudinary(buffer, fileExtension);
-
-    console.log("Uploaded image URL:", imageUrl);
-    // const fileName = await uploadImageToCloudinary(
-    //   buffer,
-    //   fileExtension
-    // );
-  } catch (e) {
-    console.error("Error while trying to upload a file\n", e);
-    return NextResponse.json(
-      { error: "Something went wrong." },
-      { status: 500 }
-    );
   }
+  return NextResponse.json({ success: true });
 }

@@ -4,7 +4,6 @@ import Institute from "@/models/Institutes";
 
 connect();
 
-
 export async function OPTIONS(request: Request) {
   const allowedOrigin = request.headers.get("origin");
   const response = new NextResponse(null, {
@@ -22,13 +21,12 @@ export async function OPTIONS(request: Request) {
 }
 
 export async function POST(request: Request) {
-  console.log("request=================================>", request);
   try {
     const requestBody = await request.json(); // Parse JSON data from the request body
 
     const filters: any = {};
 
-    const { city, class_mode, language } = requestBody;
+    const { city, class_mode, language, locality } = requestBody;
 
     if (city && city.length > 0) {
       filters.city = { $in: city };
@@ -40,6 +38,10 @@ export async function POST(request: Request) {
 
     if (language && language.length > 0) {
       filters.language = { $in: language };
+    }
+
+    if (locality && locality.length > 0) {
+      filters.language = { $in: locality };
     }
 
     const institutes = await Institute.find(

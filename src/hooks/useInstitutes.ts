@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react";
 import apiClient, { localBaseUrl } from "@/utils/apiClient";
 
-const apiUrl = localBaseUrl + apiClient.Urls.getInstitutes;
-
 export function useInstitutes(
   city?: string,
   class_mode?: string,

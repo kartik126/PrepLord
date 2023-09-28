@@ -15,7 +15,7 @@ async function uploadImageToCloudinary(
 ): Promise<string> {
   return new Promise<string>((resolve: any, reject) => {
     const cld_upload_stream = cloudinary.uploader.upload_stream(
-      { folder: "Home/images" }, // Use the provided folder name
+      { folder: "Home/images" },
       function (error, result) {
         if (error) {
           console.error("Error uploading to Cloudinary:", error);
@@ -43,6 +43,32 @@ export async function POST(request: Request) {
     const rating: string = requestBody.get("rating") as string;
     const address: string = requestBody.get("address") as string;
     const phone: string = requestBody.get("phone") as string;
+    const lattitude: string = requestBody.get("lattitude") as string;
+    const longitude: string = requestBody.get("longitude") as string;
+    const galleryImages = requestBody.getAll("gallery");
+
+    const formDataEntryValues = Array.from(galleryImages.values());
+
+    console.log("*******************************", formDataEntryValues);
+
+    const galleryImagesArray = [];
+
+    for (const formDataEntryValue of formDataEntryValues) {
+      if (
+        typeof formDataEntryValue === "object" &&
+        "arrayBuffer" in formDataEntryValue
+      ) {
+        const file = formDataEntryValue as unknown as Blob;
+        const mimeType = file.type;
+        const fileExtension = mimeType.split("/")[1];
+        const buffer = Buffer.from(await file.arrayBuffer());
+ 
+
+        const response = await uploadImageToCloudinary(buffer, fileExtension);
+
+        galleryImagesArray.push(response);
+      }
+    }
 
     const file = requestBody.get("image_url") as Blob | null;
     if (!file) {
@@ -59,7 +85,7 @@ export async function POST(request: Request) {
 
     const image = await uploadImageToCloudinary(buffer, fileExtension);
 
-    console.log("Uploaded image URL:", typeof image, image);
+    // console.log("Uploaded image URL:", typeof image, image);
 
     const setInstitutes = new Institutes({
       name,
@@ -72,6 +98,9 @@ export async function POST(request: Request) {
       address,
       phone,
       image_url: image,
+      lattitude,
+      longitude,
+      gallery: galleryImagesArray,
     });
 
     console.log("setInstitutes:", setInstitutes);

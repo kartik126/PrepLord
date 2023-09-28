@@ -29,7 +29,6 @@ export async function POST(request: Request) {
       categories: requestBody.categories,
     });
 
-    // Save the new exam to the database
     const savedExam = await newExam.save();
 
     return NextResponse.json({
