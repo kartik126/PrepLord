@@ -6,6 +6,7 @@ const questionSchema = new Schema({
     type: String,
     required: true,
   },
+  image: String,
   options: [
     {
       text: {
@@ -18,6 +19,10 @@ const questionSchema = new Schema({
       },
     },
   ],
+  category: {
+    type: String,
+    required: true,
+  },
 });
 
 // Define the schema for exams
@@ -39,7 +44,8 @@ const testSchema = new Schema({
 });
 
 // Create models for questions and exams based on the schemas
-const Question = mongoose.models.Question || mongoose.model("Question", questionSchema);
+const Question =
+  mongoose.models.Question || mongoose.model("Question", questionSchema);
 const Test = mongoose.models.Test || mongoose.model("Test", testSchema);
 
 export { questionSchema, testSchema, Question, Test };

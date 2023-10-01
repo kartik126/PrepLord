@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <NextAuthProvider>
-        <RecoilRootWrapper>{children}</RecoilRootWrapper>
+          <RecoilRootWrapper>{children}</RecoilRootWrapper>
         </NextAuthProvider>
       </body>
     </html>

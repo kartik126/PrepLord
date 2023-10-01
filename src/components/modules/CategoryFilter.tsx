@@ -1,4 +1,3 @@
-
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -59,7 +58,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function CategoryFilter() {
+export default function CategoryFilter({ exam_data, myExamId }: any) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   return (
@@ -70,11 +69,30 @@ export default function CategoryFilter() {
           role="list"
           className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900"
         >
-          {subCategories.map((category) => (
+          {exam_data
+            ?.filter((e: any) => e._id === myExamId)
+            ?.map((key: any) => (
+              <>
+                {key.categories.map((category: any, index: number) => {
+                  return (
+                    <>
+                      {category?.subcategories?.map((subcategory: any) => {
+                        return (
+                          <li key={index}>
+                            <a href={""}>{subcategory.name}</a>
+                          </li>
+                        );
+                      })}
+                    </>
+                  );
+                })}
+              </>
+            ))}
+          {/* {subCategories.map((category) => (
             <li key={category.name}>
               <a href={category.href}>{category.name}</a>
             </li>
-          ))}
+          ))} */}
         </ul>
 
         {filters.map((section) => (
