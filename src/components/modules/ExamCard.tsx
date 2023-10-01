@@ -3,17 +3,15 @@ import Image from "next/image";
 
 function ExamCard({ exam }: any) {
   return (
-    <div className="shadow-md cursor-pointer w-[170px] h-[170px] border bg-[#fff] relative rounded-md group overflow-hidden">
-      <div className="py-10 flex items-center justify-center">
-        <h3 className="text-black text-1xl align-center font-medium">{exam}</h3>
+    <div className="flex flex-col items-center justify-center w-[200px]">
+      <div className="shadow-md cursor-pointer w-[100px] h-[100px] border bg-[#fff] relative rounded-full group overflow-hidden">
+        <img src={exam.image} style={{ width: "100%", height: "100%" }} alt={exam.name} />
       </div>
-
-      <div className="absolute inset-x-0 bottom-0 h-10 bg-[#205383]  flex items-center justify-center">
-        <h3 className="text-white text-sm font-regular">
-          Previous Question Paper
-        </h3>
-      </div>
+      <h4 className="text-black text-1xl mt-2 font-medium text-center">{exam.name}</h4>
     </div>
+
+
+
   );
 }
 
