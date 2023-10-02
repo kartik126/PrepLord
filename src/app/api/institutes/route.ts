@@ -26,7 +26,6 @@ async function uploadImageToCloudinary(
         }
       }
     );
-
     streamifier.createReadStream(file).pipe(cld_upload_stream);
   });
 }
@@ -37,6 +36,7 @@ export async function POST(request: Request) {
     const name: string = requestBody.get("name") as string;
     const city: string = requestBody.get("city") as string;
     const locality: string = requestBody.get("locality") as string;
+    const courses: string = requestBody.get("courses") as string;
     const class_mode: string = requestBody.get("class_mode") as string;
     const language: string = requestBody.get("language") as string;
     const price: string = requestBody.get("price") as string;
@@ -45,15 +45,27 @@ export async function POST(request: Request) {
     const phone: string = requestBody.get("phone") as string;
     const lattitude: string = requestBody.get("lattitude") as string;
     const longitude: string = requestBody.get("longitude") as string;
-    const galleryImages = requestBody.getAll("gallery");
+    // const galleryImages = requestBody.getAll("gallery");
 
-    const formDataEntryValues = Array.from(galleryImages.values());
+    // const formDataEntryValues = Array.from(galleryImages.values());
 
-    console.log("*******************************", formDataEntryValues);
+    // console.log("*******************************", formDataEntryValues);
 
     const galleryImagesArray = [];
+    const cloudinaryImageResponse = [];
 
-    for (const formDataEntryValue of formDataEntryValues) {
+    for (let i = 0; ; i++) {
+      const galleryImage = requestBody.get(`gallery[${i}].url`);
+
+      if (!galleryImage) {
+        // If 'text' is not present, exit the loop
+        break;
+      }
+
+      galleryImagesArray.push(galleryImage);
+    }
+
+    for (const formDataEntryValue of galleryImagesArray) {
       if (
         typeof formDataEntryValue === "object" &&
         "arrayBuffer" in formDataEntryValue
@@ -62,18 +74,22 @@ export async function POST(request: Request) {
         const mimeType = file.type;
         const fileExtension = mimeType.split("/")[1];
         const buffer = Buffer.from(await file.arrayBuffer());
- 
 
         const response = await uploadImageToCloudinary(buffer, fileExtension);
 
-        galleryImagesArray.push(response);
+        cloudinaryImageResponse.push({key:'feayured', url:response});
       }
     }
+
+    console.log(
+      "GALLERY IMAGE URLLLL *******************************>>>>>>>>>",
+      cloudinaryImageResponse
+    );
 
     const file = requestBody.get("image_url") as Blob | null;
     if (!file) {
       return NextResponse.json(
-        { error: "File blob is required." },
+        { error: "image_url is required." },
         { status: 400 }
       );
     }
@@ -85,22 +101,23 @@ export async function POST(request: Request) {
 
     const image = await uploadImageToCloudinary(buffer, fileExtension);
 
-    // console.log("Uploaded image URL:", typeof image, image);
+    console.log("Uploaded image URL:", typeof image, image);
 
     const setInstitutes = new Institutes({
       name,
       city,
       locality,
+      courses,
       class_mode,
       language,
       price,
       rating,
       address,
       phone,
-      image_url: image,
+      image_url:image,
       lattitude,
       longitude,
-      gallery: galleryImagesArray,
+      gallery: cloudinaryImageResponse,
     });
 
     console.log("setInstitutes:", setInstitutes);

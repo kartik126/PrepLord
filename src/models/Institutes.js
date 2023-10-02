@@ -10,6 +10,7 @@ const instituteSchema = new mongoose.Schema({
   },
   city: String,
   locality: String,
+  courses: String,
   class_mode: String,
   language: String,
   price: String,
@@ -19,9 +20,13 @@ const instituteSchema = new mongoose.Schema({
   image_url: String,
   lattitude: String,
   longitude: String,
-  gallery: {
-    type: String,
-  },
+  gallery: [
+    {
+      url: {
+        type: String,
+      },
+    },
+  ],
 });
 
 const Institute =

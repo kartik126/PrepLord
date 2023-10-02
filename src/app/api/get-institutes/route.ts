@@ -26,8 +26,18 @@ export async function POST(request: Request) {
 
     const filters: any = {};
 
-    const { city, class_mode, language, locality } = requestBody;
+    const { city, class_mode, language, locality ,courses} = requestBody;
 
+    if (courses && courses.length > 0) {
+      // Split the courses filter into an array of individual courses
+      const courseArray = courses.split(',').map((course: string) => course.trim());
+
+      // Create a regular expression pattern to match any course in the array
+      const coursesRegExp = new RegExp(courseArray.join('|'), 'i');
+
+      // Use the regular expression pattern for case-insensitive matching
+      filters.courses = { $regex: coursesRegExp };
+    }
     if (city && city.length > 0) {
       filters.city = { $in: city };
     }

@@ -111,7 +111,7 @@ function Page() {
         </div>
         <div className="w-1/3 p-5">
           <div className='' style={{ backgroundColor: primary_color }}>
-            <h3 className="text-2xl text-white text-left font-medium py-3 pl-5">
+            <h3 className="text-xl text-white text-left font-medium py-3 pl-5">
               Job Notifications
             </h3>
           </div>
