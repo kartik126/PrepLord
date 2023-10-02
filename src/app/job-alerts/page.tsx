@@ -60,7 +60,7 @@ function Page() {
           </div>
           <ul className="list-disc list-inside p-4">
             {Notifications.map((key, index) => (
-              <li onClick={() => setHeading(key)} className="text-gray-700 font-medium hover:text-blue-500 hover:cursor-pointer py-1 flex items-center" style={{ color: primary_color }}>
+              <li key={index} onClick={() => setHeading(key)} className="text-gray-700 font-medium hover:text-blue-500 hover:cursor-pointer py-1 flex items-center" style={{ color: primary_color }}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 mr-2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                 </svg>
@@ -78,7 +78,7 @@ function Page() {
           </div>
           <ul className="list-disc list-inside p-4">
             {Announcements.map((key, index) => (
-              <li onClick={() => setHeading(key)} className="text-gray-700 font-medium hover:text-blue-500 hover:cursor-pointer py-1 flex items-center" style={{ color: primary_color }}>
+              <li key={index} onClick={() => setHeading(key)} className="text-gray-700 font-medium hover:text-blue-500 hover:cursor-pointer py-1 flex items-center" style={{ color: primary_color }}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 mr-2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                 </svg>
@@ -96,7 +96,7 @@ function Page() {
           </div>
           <ul className="list-disc list-inside p-4">
             {Others.map((key, index) => (
-              <li onClick={() => setHeading(key)} className="text-gray-700 font-medium hover:text-blue-500 hover:cursor-pointer py-1 flex items-center" style={{ color: primary_color }}>
+              <li key={index} onClick={() => setHeading(key)} className="text-gray-700 font-medium hover:text-blue-500 hover:cursor-pointer py-1 flex items-center" style={{ color: primary_color }}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 mr-2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                 </svg>

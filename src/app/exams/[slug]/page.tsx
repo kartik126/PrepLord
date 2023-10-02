@@ -102,7 +102,7 @@ export default function Exams({ params }: { params: { slug: string } }) {
 
     const sub_cat = subcategories();
 
-    console.log("sub cateeeee",sub_cat);
+    console.log("sub cateeeee", sub_cat);
   });
 
   return (
@@ -193,7 +193,7 @@ export default function Exams({ params }: { params: { slug: string } }) {
 
               <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                 {/* Sidebar Filters */}
-                <CategoryFilter exam_data={exam_data} myExamId={myExamId}/>
+                <CategoryFilter exam_data={exam_data} myExamId={myExamId} />
 
                 {/* Exams subcategories grid */}
                 <div className="lg:col-span-3">
@@ -206,16 +206,22 @@ export default function Exams({ params }: { params: { slug: string } }) {
                         ?.map((key: any, index) => (
                           <>
                             {key?.categories?.map((category: any, ind: any) => {
+                              const lowercaseCategoryName =
+                                category.name.toLowerCase();
                               return (
-                                <div
-                                  key={ind}
-                                  className={`cursor-pointer hover:font-bold p-4 py-8 flex flex-col text-md items-center text-center font-normal text-gray-600 rounded-md ${
-                                    colors[ind % colors.length]
-                                  }`}
+                                <Link
+                                key={ind}
+                                href={`/institutes/${lowercaseCategoryName}`}
                                 >
-                                  <NewspaperIcon className="w-8 pb-3" />
-                                  {category.name}
-                                </div>
+                                  <div
+                                    className={`cursor-pointer hover:font-bold p-4 py-8 flex flex-col text-md items-center text-center font-normal text-gray-600 rounded-md ${
+                                      colors[ind % colors.length]
+                                    }`}
+                                  >
+                                    <NewspaperIcon className="w-8 pb-3" />
+                                    {category.name}
+                                  </div>
+                                </Link>
                               );
                             })}
                           </>

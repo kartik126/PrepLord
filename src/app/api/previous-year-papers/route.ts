@@ -2,6 +2,8 @@
 // import { NextResponse } from "next/server";
 // import { Readable } from "stream";
 
+import { NextResponse } from "next/server";
+
 
 // export async function POST(req: Request) {
 
@@ -44,3 +46,8 @@
 //   // return the response after all the entries have been processed.
 //   return NextResponse.json({ success: true });
 // }
+
+export async function POST(request: Request){
+
+  NextResponse.json({ success: true });
+}

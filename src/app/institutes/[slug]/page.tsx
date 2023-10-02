@@ -72,7 +72,8 @@ function classNames(...classes: any) {
 }
 
 export default function Institutes({ params }: { params: { slug: string } }) {
-  const institutes = useInstitutes();
+
+  const institutes = useInstitutes(params.slug);
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
