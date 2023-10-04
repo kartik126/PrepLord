@@ -6,23 +6,40 @@ import logo from "../../../public/logo-hindi-main.webp";
 import { primary_color } from "@/utils/Colors";
 import StarRating from "../elements/StarRatings";
 
-function InstituteCard() {
+interface institutesInterface{
+
+  name: string;
+  image_url: string;
+  phone: string;
+  courses: string;
+  gallery:string[];
+  language: string;
+  locality: string;
+  address: string;
+  lattitude:string;
+  longitude:string;
+  price: string;
+  city: string;
+  class_mode: string;
+  rating: string;
+
+}
+
+function InstituteCard({name,image_url,address,city,rating}:institutesInterface) {
   return (
     <div className="relative cursor-pointer w-3/4 h-fit p-2 py-3 flex flex-row border-[1.5px] border-gray-300 rounded-lg shadow-md hover:shadow-lg mb-5">
-      <div className="w-[250px] h-100">
-        <Image src={logo} alt="coaching logo" className="h-[100%]" />
+      <div className="h-100">
+        <Image src={image_url} width={200} height={200} alt="coaching logo" className="h-[100%]" />
       </div>
       <div className="flex flex-col justify-between pl-3">
         <p className="font-semibold text-xl text-gray-700">
-          Drishti IAS Coaching in Delhi
+          {name}
         </p>
-        <StarRating />
+        <StarRating newRating={rating}/>
         <div className="flex flex-row items-center pt-2">
           <MapPinIcon className="w-10 text-red-500" />
           <p className="text-xs text-gray-500 font-semibold">
-            39 Reviews Shop No. 92/94 GROUND FLOOR, GTB nagar metro station The
-            Mall Rd, Kingsway Camp Mukherjee Nagar New Delhi, New Delhi, Delhi,
-            110009, IN
+          {address}
           </p>
         </div>
         <button

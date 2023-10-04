@@ -2,7 +2,7 @@ import { primary_color } from "@/utils/Colors";
 import React, { useState } from "react";
 import StarRatings from "react-star-ratings";
 
-function StarRating() {
+function StarRating({newRating}) {
   const [rating, setRating] = useState(0);
 
   const handleRatingChange = (newRating) => {

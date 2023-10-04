@@ -120,13 +120,13 @@ export default function Example() {
                           />
                         </div>
                         <div className="flex-auto">
-                          <a
+                          <Link
                             href={`exams/${item.name}`}
                             className="block font-semibold text-gray-900 hover:text-blue-900"
                           >
                             {item.name}
                             <span className="absolute inset-0" />
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     ))}

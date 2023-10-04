@@ -11,20 +11,19 @@ export function useInstitutes(
 ) {
   const [institutes, setInstitutes] = useState([]);
 
-  console.log("paramssss from hooooooooooooooook", courses);
-
   useEffect(() => {
     async function fetchExams() {
+      console.log("paramssss from hooooooooooooooook", courses);
       try {
-        const requestData = {
-          courses: courses || "",
-          city: city || "",
-          class_mode: class_mode || "",
-          language: language || ""
-        };
+        // const requestData = {
+        //   courses: courses || "",
+        //   city: city || "",
+        //   class_mode: class_mode || "",
+        //   language: language || "",
+        // };
 
         const res = await apiClient.post(`${apiClient.Urls.getInstitutes}`, {
-          requestData,
+          courses,
         });
         const data = res;
 
@@ -37,7 +36,7 @@ export function useInstitutes(
     }
 
     fetchExams();
-  }, [courses,city,class_mode,language]);
+  }, [courses, city, class_mode, language]);
 
   return institutes;
 }

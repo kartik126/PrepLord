@@ -79,30 +79,10 @@ export default function Exams({ params }: { params: { slug: string } }) {
 
   console.log(exam_data);
 
-  const subcategories = () => {
-    exam_data
-      ?.filter((e: any) => e._id === myExamId)
-      ?.map((key: any, index) => (
-        <>
-          {key.categories.map((category: any) => {
-            <>
-              {category?.subcategories?.map((subcategory: any) => {
-                return subcategory;
-              })}
-            </>;
-          })}
-        </>
-      ));
-  };
-
   useEffect(() => {
     const my_exam_id = localStorage.getItem("myExamId");
 
     setmyExamId(my_exam_id || "");
-
-    const sub_cat = subcategories();
-
-    console.log("sub cateeeee", sub_cat);
   });
 
   return (
@@ -193,7 +173,7 @@ export default function Exams({ params }: { params: { slug: string } }) {
 
               <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                 {/* Sidebar Filters */}
-                <CategoryFilter exam_data={exam_data} myExamId={myExamId} />
+                <CategoryFilter />
 
                 {/* Exams subcategories grid */}
                 <div className="lg:col-span-3">
@@ -210,8 +190,8 @@ export default function Exams({ params }: { params: { slug: string } }) {
                                 category.name.toLowerCase();
                               return (
                                 <Link
-                                key={ind}
-                                href={`/institutes/${lowercaseCategoryName}`}
+                                  key={ind}
+                                  href={`/institutes/${lowercaseCategoryName}`}
                                 >
                                   <div
                                     className={`cursor-pointer hover:font-bold p-4 py-8 flex flex-col text-md items-center text-center font-normal text-gray-600 rounded-md ${

@@ -1,4 +1,6 @@
-import { Fragment, useState } from "react";
+"use client"
+
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -8,6 +10,7 @@ import {
   PlusIcon,
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
+import { useExams } from "@/hooks/useExams";
 
 const subCategories = [
   { name: "Totes", href: "#" },
@@ -58,8 +61,20 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function CategoryFilter({ exam_data, myExamId }: any) {
+export default function CategoryFilter() {
+
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
+  const [myExamId, setmyExamId] = useState<String>("");
+
+
+  const exam_data = useExams();
+
+  useEffect(() => {
+    const my_exam_id = localStorage.getItem("myExamId");
+
+    setmyExamId(my_exam_id || "");
+  });
 
   return (
     <>

@@ -40,44 +40,17 @@ const sortOptions = [
   { name: "Price: High to Low", href: "#", current: false },
 ];
 
-const ExamsSubcategory = [
-  {
-    name: "Comprehensive",
-  },
-  {
-    name: "Prelims",
-  },
-  {
-    name: "Mains",
-  },
-  {
-    name: "Essays",
-  },
-  {
-    name: "Ethics",
-  },
-  {
-    name: "Test Series",
-  },
-  {
-    name: "Optional",
-  },
-  {
-    name: "Interviews",
-  },
-];
-
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Institutes({ params }: { params: { slug: string } }) {
-
-  const institutes = useInstitutes(params.slug);
+  
+  const institute:any = useInstitutes(params.slug);
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  console.log("institeue", institutes);
+  console.log("institeue", institute?.institutes);
 
   return (
     <>
@@ -176,9 +149,10 @@ export default function Institutes({ params }: { params: { slug: string } }) {
                   <div className="container mx-auto p-4">
                     {/* <h1 className="text-xl">Explore all exams</h1> */}
                     <div className="flex flex-col ">
-                      <InstituteCard />
-                      <InstituteCard />
-                      <InstituteCard />
+                      {institute?.institutes?.map((data: any, index: any) => {
+                        return <InstituteCard {...data} key={index} />;
+                      })}
+                  
                     </div>
                   </div>
                 </div>
