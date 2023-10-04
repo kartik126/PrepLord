@@ -20,6 +20,7 @@ import { primary_color } from "@/utils/Colors";
 import InstituteCard from "@/components/modules/InstituteCard";
 import Filters from "@/components/modules/Filters";
 import { useInstitutes } from "@/hooks/useInstitutes";
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const colors = [
   "bg-blue-200",
@@ -45,8 +46,16 @@ function classNames(...classes: any) {
 }
 
 export default function Institutes({ params }: { params: { slug: string } }) {
-  
-  const institute:any = useInstitutes(params.slug);
+
+  const searchParams = useSearchParams();
+
+  const city = searchParams.get('city');
+
+  const courses = searchParams.get('courses');
+
+  console.log("query paramsssssssssssssssssssssssssssss", city);
+
+  const {institute,isLoading}: any = useInstitutes((courses || ''), (city || ''));
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
@@ -150,9 +159,8 @@ export default function Institutes({ params }: { params: { slug: string } }) {
                     {/* <h1 className="text-xl">Explore all exams</h1> */}
                     <div className="flex flex-col ">
                       {institute?.institutes?.map((data: any, index: any) => {
-                        return <InstituteCard {...data} key={index} />;
+                        return <InstituteCard {...data} key={index} isLoading={isLoading}/>;
                       })}
-                  
                     </div>
                   </div>
                 </div>

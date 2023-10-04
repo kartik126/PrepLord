@@ -190,13 +190,16 @@ export default function Exams({ params }: { params: { slug: string } }) {
                                 category.name.toLowerCase();
                               return (
                                 <Link
-                                  key={ind}
-                                  href={`/institutes/${lowercaseCategoryName}`}
+                                  href={{
+                                    pathname: `/institutes/${lowercaseCategoryName}`,
+                                    query: {
+                                      courses: lowercaseCategoryName,
+                                    }
+                                  }}
                                 >
                                   <div
-                                    className={`cursor-pointer hover:font-bold p-4 py-8 flex flex-col text-md items-center text-center font-normal text-gray-600 rounded-md ${
-                                      colors[ind % colors.length]
-                                    }`}
+                                    className={`cursor-pointer hover:font-bold p-4 py-8 flex flex-col text-md items-center text-center font-normal text-gray-600 rounded-md ${colors[ind % colors.length]
+                                      }`}
                                   >
                                     <NewspaperIcon className="w-8 pb-3" />
                                     {category.name}

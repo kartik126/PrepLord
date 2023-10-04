@@ -5,9 +5,9 @@ import React from "react";
 import logo from "../../../public/logo-hindi-main.webp";
 import { primary_color } from "@/utils/Colors";
 import StarRating from "../elements/StarRatings";
+import Loader from "@/app/institutes/Loader";
 
 interface institutesInterface{
-
   name: string;
   image_url: string;
   phone: string;
@@ -22,10 +22,10 @@ interface institutesInterface{
   city: string;
   class_mode: string;
   rating: string;
-
+  isLoading:boolean
 }
 
-function InstituteCard({name,image_url,address,city,rating}:institutesInterface) {
+function InstituteCard({name,image_url,address,city,rating,isLoading}:institutesInterface) {
   return (
     <div className="relative cursor-pointer w-3/4 h-fit p-2 py-3 flex flex-row border-[1.5px] border-gray-300 rounded-lg shadow-md hover:shadow-lg mb-5">
       <div className="h-100">

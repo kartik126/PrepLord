@@ -10,27 +10,27 @@ export function useInstitutes(
   language?: string
 ) {
   const [institutes, setInstitutes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchExams() {
-      console.log("paramssss from hooooooooooooooook", courses);
-      try {
-        // const requestData = {
-        //   courses: courses || "",
-        //   city: city || "",
-        //   class_mode: class_mode || "",
-        //   language: language || "",
-        // };
 
+    async function fetchExams() {
+      const lowercaseCityyName =
+        city?.toLowerCase();
+      console.log("paramssss from hooooooooooooooook", courses, city);
+      try {
+        setIsLoading(true);
         const res = await apiClient.post(`${apiClient.Urls.getInstitutes}`, {
-          courses,
+          courses: courses, city: lowercaseCityyName
         });
         const data = res;
 
         setInstitutes(data);
+        setIsLoading(false);
 
         console.log("dataaaaaaa", data);
       } catch (error) {
+        setIsLoading(false)
         console.error("Error fetching exams:", error);
       }
     }
@@ -38,5 +38,5 @@ export function useInstitutes(
     fetchExams();
   }, [courses, city, class_mode, language]);
 
-  return institutes;
+  return { institutes, isLoading };
 }
