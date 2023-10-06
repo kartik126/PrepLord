@@ -55,11 +55,11 @@ export default function Institutes({ params }: { params: { slug: string } }) {
 
   console.log("query paramsssssssssssssssssssssssssssss", city);
 
-  const {institute,isLoading}: any = useInstitutes((courses || ''), (city || ''));
+  const { institutes, isLoading }: any = useInstitutes((courses || ''), (city || ''));
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  console.log("institeue", institute?.institutes);
+  console.log("institeue", institutes);
 
   return (
     <>
@@ -158,9 +158,13 @@ export default function Institutes({ params }: { params: { slug: string } }) {
                   <div className="container mx-auto p-4">
                     {/* <h1 className="text-xl">Explore all exams</h1> */}
                     <div className="flex flex-col ">
-                      {institute?.institutes?.map((data: any, index: any) => {
-                        return <InstituteCard {...data} key={index} isLoading={isLoading}/>;
-                      })}
+                      {institutes?.institutes?.length > 0  ?
+                        institutes?.institutes?.map((data: any, index: any) => {
+                          return <InstituteCard {...data} key={index} isLoading={isLoading} />;
+                        })
+                        :
+                        <h1 className="text-center">no data found</h1>
+                      }
                     </div>
                   </div>
                 </div>

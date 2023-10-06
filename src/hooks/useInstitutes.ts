@@ -27,8 +27,6 @@ export function useInstitutes(
 
         setInstitutes(data);
         setIsLoading(false);
-
-        console.log("dataaaaaaa", data);
       } catch (error) {
         setIsLoading(false)
         console.error("Error fetching exams:", error);
