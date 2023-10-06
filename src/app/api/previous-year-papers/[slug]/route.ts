@@ -3,7 +3,7 @@ import Papers from "@/models/Papers";
 import { NextRequest, NextResponse } from "next/server";
 
 connect();
-export async function GET(request: NextRequest,{params}:any) {
+export async function GET(request: NextRequest, { params }: any) {
   const exam_name = params.slug; // Retrieve 'exam_name' from query parameters
   try {
     const papers = await Papers.find({

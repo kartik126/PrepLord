@@ -1,53 +1,68 @@
-// // app/api/upload
-// import { NextResponse } from "next/server";
-// import { Readable } from "stream";
-
 import { NextResponse } from "next/server";
+import { v2 as cloudinary } from "cloudinary";
+import { config as cloudinaryConfig } from "../../../utils/cloudinary";
+import streamifier from "streamifier";
+import { connect } from "@/dbConfig/dbConfig";
+import Papers from "@/models/Papers";
 
+connect();
 
-// export async function POST(req: Request) {
+cloudinary.config(cloudinaryConfig);
 
-//   // get the form data
-//   const data = await req.formData();
+async function uploadImageToCloudinary(
+  file: Buffer,
+  folderName: string
+): Promise<string> {
+  return new Promise<string>((resolve: any, reject) => {
+    const cld_upload_stream = cloudinary.uploader.upload_stream(
+      { folder: "Home/documents", resource_type: "raw" },
+      function (error, result) {
+        if (error) {
+          console.error("Error uploading to Cloudinary:", error);
+          reject(error);
+        } else {
+          console.log("Upload successful:", result);
+          resolve(result?.secure_url);
+        }
+      }
+    );
+    streamifier.createReadStream(file).pipe(cld_upload_stream);
+  });
+}
 
-//   // map through all the entries
-//   for (const entry of Array.from(data.entries())) {
-//     const [key, value] = entry;
-//     // FormDataEntryValue can either be type `Blob` or `string`
-//     // if its type is object then it's a Blob
-//     const isFile = typeof value == "object";
+export async function POST(request: Request) {
+  try {
+    const requestBody = await request.formData();
 
-//     if (isFile) {
-//       const blob = value as Blob;
-//       const filename = blob.name;
+    const title = requestBody.get("title") as string;
+    const exam_name = requestBody.get("exam_name") as string;
+    const year = requestBody.get("year") as string;
 
-//       const existing = await fileExists(filename);
-//       if (existing) {
-//         // If file already exists, let's skip it.
-//         // If you want a different behavior such as override, modify this part.
-//         continue;
-//       }
+    const file = requestBody.get("file") as Blob | null;
 
-//       //conver the blob to stream
-//       const buffer = Buffer.from(await blob.arrayBuffer());
-//       const stream = Readable.from(buffer);
+    if (!file) {
+      return NextResponse.json({ error: "file is required." }, { status: 400 });
+    }
+    const mimeType = file.type;
+    const fileExtension = mimeType.split("/")[1];
 
-//       const uploadStream = bucket.openUploadStream(filename, {
-//         // make sure to add content type so that it will be easier to set later.
-//         contentType: blob.type,
-//         metadata: {}, //add your metadata here if any
-//       });
+    const buffer = Buffer.from(await file.arrayBuffer());
 
-//       // pipe the readable stream to a writeable stream to save it to the database
-//       await stream.pipe(uploadStream);
-//     }
-//   }
+    const response_url = await uploadImageToCloudinary(buffer, fileExtension);
 
-//   // return the response after all the entries have been processed.
-//   return NextResponse.json({ success: true });
-// }
+    console.log("Uploaded file URL:", response_url);
 
-export async function POST(request: Request){
+    const paper = new Papers({
+      title: title,
+      exam_name: exam_name,
+      year: year,
+      file: response_url,
+    });
 
-  NextResponse.json({ success: true });
+    await paper.save();
+
+    return NextResponse.json({ success: true, paper: paper });
+  } catch (error) {
+    return NextResponse.json({ error: error });
+  }
 }
