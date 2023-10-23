@@ -16,6 +16,7 @@ import CategoryFilter from "@/components/modules/CategoryFilter";
 import MobileCategoryFilter from "@/components/modules/MobileCategoryFilter";
 import { primary_color } from "@/utils/Colors";
 import Button from "@/components/elements/Button";
+import { usePaper } from "@/hooks/usePapers";
 
 const colors = [
   "bg-blue-200",
@@ -71,6 +72,11 @@ function classNames(...classes: any) {
 }
 
 export default function Papers({ params }: { params: { slug: string } }) {
+
+  const { papers, isLoading }: any = usePaper("upsc");
+
+  console.log("HAHAHAHAHAHAHAHAHAHAHAHA",papers?.papers)
+
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   return (
@@ -169,7 +175,7 @@ export default function Papers({ params }: { params: { slug: string } }) {
                     {/* <h1 className="text-xl">Explore all exams</h1> */}
                     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4">
                       {/* Map over items and apply colors */}
-                      {papers.map((item, index) => (
+                      {papers?.papers?.map((item:any, index:number) => (
                         <>
                           <div
                             key={index}
@@ -179,9 +185,10 @@ export default function Papers({ params }: { params: { slug: string } }) {
                             <div className="flex flex-col w-100">
                             <p className="bg-green-200  text-green-700 w-fit fond-bold text-xs p-1 rounded-lg px-2">Free</p>
                               <h1 className="pt-2 text-lg font-bold">
-                                {/* <NewspaperIcon className="w-20 pb-3 text-red-500" /> */}
-                                {item.name}
+                           
+                                {item.title}
                               </h1>
+                              <p>{item.uploadDate}</p>
 
                               <div className="flex flex-row pt-3">
                                 <p className="text-sm text-gray-400 mr-3">
@@ -194,17 +201,16 @@ export default function Papers({ params }: { params: { slug: string } }) {
                                   120 Min
                                 </p>
                               </div>
-
                               <div className="flex flex-row items-center justify-between pt-3">
-                                <Button text={"Download PDF"} link="" />
-                                <button
+                                <Button text={"Download PDF"} link=""/>
+                                {/* <button
                                   className=" rounded-lg w-fit py-1 px-12"
                                   style={{
                                     border: `2px solid ${primary_color}`,
                                   }}
                                 >
                                   Start Now
-                                </button>
+                                </button> */}
                               </div>
                             </div>
                           </div>

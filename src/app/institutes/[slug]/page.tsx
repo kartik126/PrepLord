@@ -160,7 +160,10 @@ export default function Institutes({ params }: { params: { slug: string } }) {
                     <div className="flex flex-col ">
                       {institutes?.institutes?.length > 0  ?
                         institutes?.institutes?.map((data: any, index: any) => {
-                          return <InstituteCard {...data} key={index} isLoading={isLoading} />;
+                          return(
+                          <Link href={`/institute-details/${data?.name}`}>
+                          <InstituteCard {...data} key={index} isLoading={isLoading} />
+                          </Link>)
                         })
                         :
                         <h1 className="text-center">no data found</h1>

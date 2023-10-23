@@ -15,7 +15,7 @@ async function uploadImageToCloudinary(
 ): Promise<string> {
   return new Promise<string>((resolve: any, reject) => {
     const cld_upload_stream = cloudinary.uploader.upload_stream(
-      { folder: "Home/documents", resource_type: "raw" },
+      { folder: "Home/documents", resource_type: "raw" , format:"pdf"},
       function (error, result) {
         if (error) {
           console.error("Error uploading to Cloudinary:", error);
