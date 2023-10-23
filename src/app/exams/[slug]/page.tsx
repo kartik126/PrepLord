@@ -190,6 +190,7 @@ export default function Exams({ params }: { params: { slug: string } }) {
                                 category.name.toLowerCase();
                               return (
                                 <Link
+                                key={ind}
                                   href={{
                                     pathname: `/institutes/${lowercaseCategoryName}`,
                                     query: {

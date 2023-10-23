@@ -161,7 +161,7 @@ export default function Institutes({ params }: { params: { slug: string } }) {
                       {institutes?.institutes?.length > 0  ?
                         institutes?.institutes?.map((data: any, index: any) => {
                           return(
-                          <Link href={`/institute-details/${data?.name}`}>
+                          <Link key={data?._id} href={`/institute-details/${data?._id}`}>
                           <InstituteCard {...data} key={index} isLoading={isLoading} />
                           </Link>)
                         })

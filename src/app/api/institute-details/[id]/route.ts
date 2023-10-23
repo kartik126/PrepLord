@@ -14,7 +14,7 @@ export async function POST(req: Request, { params }: any) {
 
     console.log(institute);
     return NextResponse.json({
-      message: "Topper added successfully",
+      message: "success",
       institute,
     });
   } catch (error) {
