@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 connect();
 
-export async function POST(req: Request, { params }: any) {
+export async function GET(req: Request, { params }: any) {
   try {
     const { id } = params;
 

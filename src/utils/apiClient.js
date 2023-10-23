@@ -1,7 +1,7 @@
 export const localBaseUrl = "https://preplord.vercel.app/";
 export const localImgUrl = "https://preplord.vercel.app/";
-export const BaseUrl = "https://preplord.com/";
-export const ImgUrl = "https://preplord.com/";
+export const BaseUrl = "https://preplord.vercel.app/";
+export const ImgUrl = "https://preplord.vercel.app/";
 
 const apiClient = {
   Urls: {

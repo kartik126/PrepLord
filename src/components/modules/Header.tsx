@@ -81,12 +81,12 @@ export default function Example() {
           </div>
 
           <Popover.Group className="hidden lg:flex lg:gap-x-12">
-            <a
+            <Link
               href="/"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Home
-            </a>
+            </Link>
             <Popover className="relative">
               <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
                 <Link href={`exams/${"upsc"}`}></Link>
@@ -133,7 +133,7 @@ export default function Example() {
                   </div>
                   <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
                     {callsToAction.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
                         href={item.href}
                         className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
@@ -143,7 +143,7 @@ export default function Example() {
                           aria-hidden="true"
                         />
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </Popover.Panel>
@@ -162,18 +162,18 @@ export default function Example() {
             >
               Previous Year Papers
             </Link>
-            <a
+            <Link
               href="/mocks"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Free Mock
-            </a>
-            <a
+            </Link>
+            <Link
               href="/job-alerts"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Job Alerts
-            </a>
+            </Link>
           </Popover.Group>
           {status === "authenticated" ? (
             <>
