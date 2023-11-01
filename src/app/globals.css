@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
+
 @keyframes jump {
   0%, 20%, 50%, 80%, 100% {
     transform: translateY(0); /* No vertical movement */
@@ -18,4 +21,11 @@
 .animate-jump {
   animation: jump 2s ease-in-out infinite;
 }
+.image-gallery-slide{
+  width: 55% !important;
+  padding:0 7px ;
+}
+.image-gallery-content .image-gallery-slide .image-gallery-image {
 
+  height: 300px !important;
+}

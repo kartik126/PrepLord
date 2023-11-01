@@ -1,5 +1,5 @@
 import React from "react";
-import illustration from '../../../public/search banner/Students-rafiki.svg'
+import ExamBroIllustration from '../../../public/search banner/Exams-bro.svg'
 import Image from "next/image";
 import { BookOpenIcon } from "@heroicons/react/24/solid";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
@@ -30,7 +30,7 @@ function SearchBanner() {
         </div>
       </div>
       <div className="flex flex-row justify-end">
-      <Image src={illustration} width={450} alt="" className="animate-jump"/>
+      <Image src={ExamBroIllustration} width={380} alt="" className="animate-jump"/>
       </div>
     </div>
   );

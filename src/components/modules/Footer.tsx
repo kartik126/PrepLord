@@ -32,7 +32,7 @@ const previousYearPapers = [
 
 function Footer() {
   return (
-    <div>
+    <div className="relative">
       <div
         style={{
           paddingLeft: "90px",

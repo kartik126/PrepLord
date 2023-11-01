@@ -3,6 +3,8 @@ import Image from "next/image";
 import React from "react";
 import banner1 from "../../../public/banner2.png";
 
+
+
 function Slider() {
   return (
     <div className="pt-20 cursor-pointer">
