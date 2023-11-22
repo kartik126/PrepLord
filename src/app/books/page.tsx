@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import Header from "../../components/modules/Header";
 import BookCard from "@/components/modules/BookCard";
@@ -16,14 +16,14 @@ const books = [
   },
 ];
 
-console.log(myExam)
+console.log(myExam);
 function page() {
   return (
     <>
       <Header />
       <div className="flex flex-row px-10 pt-20">
-        {books.map((book) => {
-          return <BookCard book={book} />;
+        {books.map((book, ind) => {
+          return <BookCard key={ind} book={book} />;
         })}
       </div>
     </>
