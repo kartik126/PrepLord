@@ -27,7 +27,15 @@ const questionSchema = new Schema({
 
 // Define the schema for exams
 const testSchema = new Schema({
+  exam: {
+    type: String,
+    required: true,
+  },
   title: {
+    type: String,
+    required: true,
+  },
+  max_marks: {
     type: String,
     required: true,
   },

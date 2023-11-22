@@ -14,7 +14,9 @@ export async function POST(request: Request) {
       data.getAll("questions[0]")
     );
 
+    const exam = data.get("exam");
     const title = data.get("title");
+    const max_marks = data.get("max_marks");
     const questions = data.getAll("questions");
     const durationInMinutes = data.get("durationInMinutes");
     // const image = data.image;
@@ -37,15 +39,22 @@ export async function POST(request: Request) {
       const option2Text = data.get(`questions[${i}]options[1].text`);
       const option2IsCorrect =
         data.get(`questions[${i}]options[1].isCorrect`) === "true";
-
+      const option3Text = data.get(`questions[${i}]options[2].text`);
+      const option3IsCorrect =
+        data.get(`questions[${i}]options[2].isCorrect`) === "true";
+      const option4Text = data.get(`questions[${i}]options[3].text`);
+      const option4IsCorrect =
+        data.get(`questions[${i}]options[3].isCorrect`) === "true";
       // Create a new question object
+
       const question = new Question({
         text,
         image,
         options: [
           { text: option1Text, isCorrect: option1IsCorrect },
           { text: option2Text, isCorrect: option2IsCorrect },
-          // Add more options if needed
+          { text: option3Text, isCorrect: option3IsCorrect },
+          { text: option4Text, isCorrect: option4IsCorrect },
         ],
         category,
       });
@@ -55,7 +64,9 @@ export async function POST(request: Request) {
     }
 
     const test = new Test({
+      exam,
       title,
+      max_marks,
       questions: questionIds,
       durationInMinutes,
     });

@@ -86,9 +86,9 @@ export default function InstituteDetail({
               <p className="pb-2 text-gray-600">{institute?.address}</p>
               <StarRating newRating={5} />
               <div className="flex">
-                {institute?.courses.split(",").map((key) => {
+                {institute?.courses.split(",").map((key,index) => {
                   return (
-                    <p className="px-4 py-1 border-1 border border-gray-300 w-fit rounded-full bg-gray-200 text-sm mr-2 mt-5">
+                    <p key={index} className="px-4 py-1 border-1 border border-gray-300 w-fit rounded-full bg-gray-200 text-sm mr-2 mt-5">
                       {key}
                     </p>
                   );
