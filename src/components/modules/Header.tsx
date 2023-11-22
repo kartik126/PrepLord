@@ -169,6 +169,12 @@ export default function Example() {
               Free Mock
             </Link>
             <Link
+              href="/books"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              Books
+            </Link>
+            <Link
               href="/job-alerts"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
