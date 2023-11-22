@@ -5,27 +5,7 @@ import { NextResponse } from "next/server";
 
 connect();
 
-export async function GET(request: Request) {
-  try {
-    // const requestBody = await request.formData();
-    // const examType = requestBody.get("examType");
 
-    // console.log("request: " + requestBody.get("examType"));
-
-    const books = await Book.find({})
-
-    return NextResponse.json({
-      message: "success",
-      books,
-    });
-  } catch (err) {
-    console.error("Error in sending your request", err);
-    return NextResponse.json({
-      message: "Failed",
-      error: err,
-    });
-  }
-}
 
 export async function POST(request: Request) {
   try {
