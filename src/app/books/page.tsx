@@ -3,31 +3,36 @@ import React from "react";
 import Header from "../../components/modules/Header";
 import BookCard from "@/components/modules/BookCard";
 import { myExam } from "@/recoil/store";
+import EnquiryFormStatic from "@/components/modules/EnquiryFormStatic";
+import { useBooks } from "@/hooks/useBooks";
 
-const books = [
-  {
-    _id: "655e40fcccfc3c2be3c33070",
-    title: "Quantitative Aptitude for Competitive Examinations",
-    author: "R S Aggarwal",
-    image:
-      "https://res.cloudinary.com/dfds5srjo/image/upload/v1700675836/Home/images/lpvsd22kiui9nqsnwgcp.jpg",
-    price: "490",
-    examType: "CAT",
-  },
-];
+export default function Books() {
+  const { books, loading }: any = useBooks();
 
-console.log(myExam);
-function page() {
+  console.log("booooooooooooooooook", books);
+
   return (
     <>
       <Header />
       <div className="flex flex-row px-10 pt-20">
-        {books.map((book, ind) => {
-          return <BookCard key={ind} book={book} />;
-        })}
+        <div className="flex flex-row pt-10 w-[70%] flex-wrap">
+          {loading === true ? (
+            <p>Loading...</p>
+          ) : (
+            books?.map((book: any, ind: any) => {
+              return (
+                <>
+                  <BookCard key={ind} book={book} />
+                </>
+              );
+            })
+          )}
+        </div>
+        <div className="w-[30%]">
+          <EnquiryFormStatic />
+        </div>
       </div>
     </>
   );
 }
 
-export default page;

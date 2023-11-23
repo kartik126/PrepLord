@@ -23,16 +23,17 @@ const Modal = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    localStorage.setItem('modalShown', 'true');
+    localStorage.setItem("modalShown", "true");
   };
 
   const exam: any = useRecoilValue(exams);
   const selectedExam: any = useRecoilState(myExam);
 
-  const handleExamClick = (index: number) => {
+  const handleExamClick = (index: number, exam_name:string) => {
     setSelectedExamIndex(index);
     setSelectedExam(exam[index]._id);
     localStorage.setItem("myExamId", exam[index]._id);
+    localStorage.setItem("myExamName", exam_name);
     console.log(selectedExam);
   };
 
@@ -67,7 +68,7 @@ const Modal = () => {
                         ? `2px solid ${primary_color}`
                         : "",
                   }}
-                  onClick={() => handleExamClick(index)}
+                  onClick={() => handleExamClick(index, key.name)}
                 >
                   <div className="bg-gray-100 rounded-full p-1">
                     <Image

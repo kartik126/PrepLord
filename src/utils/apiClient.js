@@ -11,6 +11,7 @@ const apiClient = {
     getInstitutes: "api/get-institutes",
     getPapers: "api/previous-year-papers",
     getInstituteDetails: "api/institute-details",
+    getBooks:"api/book-store"
   },
 
   make: function (url, method, params) {
