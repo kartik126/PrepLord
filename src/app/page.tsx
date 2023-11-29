@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 import Home from "@/Layouts/Home";
 import React, { useEffect } from 'react';
 import apiClient from "@/utils/apiClient";

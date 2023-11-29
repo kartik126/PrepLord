@@ -1,17 +1,47 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/modules/Header";
 import { primary_color } from "@/utils/Colors";
 import Link from "next/link";
+import apiClient from "@/utils/apiClient";
 
 function Page() {
+  interface TestData {
+    title: string;
+    exam: string;
+    questions: any;
+    durationInMinutes: number;
+    max_marks: number;
+    _id: number;
+  }
   const [selectedType, setSelectedType] = useState("Full Syllabus");
-
+  const [testsData, setTestsData] = useState<TestData[]>([]);
+  const [exam, setexam] = useState("");
   const handleTypeChange = (type: any) => {
     setSelectedType(type);
     // You can implement logic here to fetch and display data based on the selected type
   };
 
+  useEffect(() => {
+    const exam_name: any = localStorage.getItem("myExamName");
+    setexam(exam_name);
+    getTestList();
+  }, []);
+
+  const getTestList = async () => {
+    try {
+      const res = await apiClient.get(`${apiClient.Urls.getTestList}/${exam}`, {
+        cache: "force-cache",
+      });
+      console.log("dataaaaa", res);
+      if (res.success) {
+        setTestsData(res.data);
+      }
+    } catch (error) {
+      console.error("Error fetching exams:", error);
+      //  setinstitute(null);
+    }
+  };
   return (
     <>
       <Header />
@@ -20,11 +50,11 @@ function Page() {
         <div className="w-2/3 p-5">
           <div>
             <h1 className="font-medium text-2xl pt-3">
-              Attempt SSC & Railway Exams Mock Test
+              Attempt {exam} Exams Mock Test
             </h1>
             <p>Start Your Free Mock Tests Here</p>
           </div>
-          <div className="flex space-x-4 mt-4">
+          {/* <div className="flex space-x-4 mt-4">
             <div
               onClick={() => handleTypeChange("Full Syllabus")}
               style={{
@@ -86,135 +116,59 @@ function Page() {
             >
               <h4>Topic Wise</h4>
             </div>
-          </div>
+          </div> */}
 
           {/* Display data based on the selected type */}
           {selectedType === "Full Syllabus" && (
-            <div className="flex flex-row justify-between py-5">
-              <div className="mt-8">
-                {/* Data for Full Syllabus */}
-                <div className="cursor-pointer relative w-[250px] h-[240px]  border rounded-lg group overflow-hidden">
-                  <div className="absolute flex flex-col items-center w-full h-full">
-                    <h3 className="text-black font-medium mb-2 mt-2">
-                      SSC CGL Tier 1 2024 Mock 1
-                    </h3>
-                    <p style={{ fontSize: 12 }}>Expires on 31 Aug 2024</p>
-                    <div
-                      style={{
-                        width: "80%",
-                        backgroundColor: "#f5f5f5",
-                        alignSelf: "center",
-                        padding: "8px",
-                        borderRadius: "3px",
-                        margin: "12px 0",
-                      }}
-                    >
-                      <div className="flex justify-between mb-1">
-                        <h5>Question</h5>
-                        <h1>100</h1>
-                      </div>
-                      <div className="flex justify-between mb-1">
-                        <h5>Max marks</h5>
-                        <h1>100</h1>
-                      </div>
-                      <div className="flex justify-between">
-                        <h5>Time</h5>
-                        <h1>100</h1>
-                      </div>
-                    </div>
-                    {/* "Attempt Now" button */}
+            <div className="flex flex-wrap mx-5" style={{ gap: "10px" }}>
+              {testsData.map((key,index) => {
+                return (
+                  <div key={index} className="mt-8" style={{ marginRight: 10 }}>
+                    {/* Data for Full Syllabus */}
+                    <div className="cursor-pointer relative w-[250px] h-[240px]  border rounded-lg group overflow-hidden">
+                      <div className="absolute flex flex-col items-center w-full h-full">
+                        <h3 className="text-black font-medium mb-2 mt-2">
+                          {key?.exam}-{key?.title}
+                        </h3>
+                        {/* <p style={{ fontSize: 12 }}>Expires on 31 Aug 2024</p> */}
+                        <div
+                          style={{
+                            width: "80%",
+                            backgroundColor: "#f5f5f5",
+                            alignSelf: "center",
+                            padding: "8px",
+                            borderRadius: "3px",
+                            margin: "12px 0",
+                          }}
+                        >
+                          <div className="flex justify-between mb-1">
+                            <h5>Question</h5>
+                            <h1>{key.questions.length}</h1>
+                          </div>
+                          <div className="flex justify-between mb-1">
+                            <h5>Max marks</h5>
+                            <h1>{key.max_marks}</h1>
+                          </div>
+                          <div className="flex justify-between">
+                            <h5>Time</h5>
+                            <h1>{key.durationInMinutes}</h1>
+                          </div>
+                        </div>
+                        {/* "Attempt Now" button */}
 
-                    <button
-                      className="bg-blue-500 text-white py-2 rounded-md absolute bottom-0"
-                      style={{ width: "100%" }}
-                    >
-                      <Link href={`/mock-test/id`}>Attempt Now</Link>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-8">
-                {/* Data for Full Syllabus */}
-                <div className="cursor-pointer relative w-[250px] h-[240px]  border rounded-lg group overflow-hidden">
-                  <div className="absolute flex flex-col items-center w-full h-full">
-                    <h3 className="text-black font-medium mb-2 mt-2">
-                      SSC CGL Tier 1 2024 Mock 1
-                    </h3>
-                    <p style={{ fontSize: 12 }}>Expires on 31 Aug 2024</p>
-                    <div
-                      style={{
-                        width: "80%",
-                        backgroundColor: "#f5f5f5",
-                        alignSelf: "center",
-                        padding: "8px",
-                        borderRadius: "3px",
-                        margin: "12px 0",
-                      }}
-                    >
-                      <div className="flex justify-between mb-1">
-                        <h5>Question</h5>
-                        <h1>100</h1>
-                      </div>
-                      <div className="flex justify-between mb-1">
-                        <h5>Max marks</h5>
-                        <h1>100</h1>
-                      </div>
-                      <div className="flex justify-between">
-                        <h5>Time</h5>
-                        <h1>100</h1>
+                        <button
+                          className="bg-blue-500 text-white py-2 rounded-md absolute bottom-0"
+                          style={{ width: "100%" }}
+                        >
+                          <Link href={`/mock-test/${key._id}`}>
+                            Attempt Now
+                          </Link>
+                        </button>
                       </div>
                     </div>
-                    {/* "Attempt Now" button */}
-                    <button
-                      className="bg-blue-500 text-white py-2 rounded-md absolute bottom-0"
-                      style={{ width: "100%" }}
-                    >
-                      Attempt Now
-                    </button>
                   </div>
-                </div>
-              </div>
-              <div className="mt-8">
-                {/* Data for Full Syllabus */}
-                <div className="cursor-pointer relative w-[250px] h-[240px]  border rounded-lg group overflow-hidden">
-                  <div className="absolute flex flex-col items-center w-full h-full">
-                    <h3 className="text-black font-medium mb-2 mt-2">
-                      SSC CGL Tier 1 2024 Mock 1
-                    </h3>
-                    <p style={{ fontSize: 12 }}>Expires on 31 Aug 2024</p>
-                    <div
-                      style={{
-                        width: "80%",
-                        backgroundColor: "#f5f5f5",
-                        alignSelf: "center",
-                        padding: "8px",
-                        borderRadius: "3px",
-                        margin: "12px 0",
-                      }}
-                    >
-                      <div className="flex justify-between mb-1">
-                        <h5>Question</h5>
-                        <h1>100</h1>
-                      </div>
-                      <div className="flex justify-between mb-1">
-                        <h5>Max marks</h5>
-                        <h1>100</h1>
-                      </div>
-                      <div className="flex justify-between">
-                        <h5>Time</h5>
-                        <h1>100</h1>
-                      </div>
-                    </div>
-                    {/* "Attempt Now" button */}
-                    <button
-                      className="bg-blue-500 text-white py-2 rounded-md absolute bottom-0"
-                      style={{ width: "100%" }}
-                    >
-                      Attempt Now
-                    </button>
-                  </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
           )}
 

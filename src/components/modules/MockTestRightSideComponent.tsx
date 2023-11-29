@@ -9,17 +9,26 @@ import {
 } from "react-icons/hi";
 import { primary_color } from "@/utils/Colors";
 
-function MockTestRightSideComponent({ questionStatuses, setQuestion }: any) {
+function MockTestRightSideComponent({
+  questionStatuses,
+  setQuestion,
+  timer,
+  totalQuestions,
+}: any) {
+  console.warn(questionStatuses);
   const [isTimerPaused, setTimerPaused] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(3600); // Initial time in seconds (adjust as needed)
+  const [timeRemaining, setTimeRemaining] = useState(
+    timer.durationInMinutes * 60
+  ); // Initial time in seconds (adjust as needed)
 
   useEffect(() => {
+    console.log("Mock Test Right Side");
     let timer: any;
 
     if (!isTimerPaused) {
       timer = setInterval(() => {
         if (timeRemaining > 0) {
-          setTimeRemaining((prevTime) => prevTime - 1);
+          setTimeRemaining((prevTime: any) => prevTime - 1);
         } else {
           // Timer reached zero, handle accordingly (e.g., show a message, submit the test, etc.)
           clearInterval(timer);
@@ -44,9 +53,9 @@ function MockTestRightSideComponent({ questionStatuses, setQuestion }: any) {
     >
       <section className="w-full">
         <div className="p-6 space-y-4  md:space-y-6 sm:p-8">
-          {isTimerPaused ? (
+          {/* {isTimerPaused ? (
             <div className="flex items-center justify-center mb-4">
-              {/* Pause Icon */}
+              
               <FaPlay
                 className=" mr-2"
                 onClick={() => setTimerPaused(!isTimerPaused)}
@@ -55,14 +64,14 @@ function MockTestRightSideComponent({ questionStatuses, setQuestion }: any) {
             </div>
           ) : (
             <div className="flex items-center justify-center mb-4">
-              {/* Pause Icon */}
+              
               <FaPause
                 className=" mr-2"
                 onClick={() => setTimerPaused(!isTimerPaused)}
               />
               <span className="text-lg font-semibold">Pause Test</span>
             </div>
-          )}
+          )} */}
           <div className="flex items-center justify-center ">
             <h4
               style={{
@@ -82,16 +91,16 @@ function MockTestRightSideComponent({ questionStatuses, setQuestion }: any) {
             backgroundColor: `${primary_color}80`,
             alignSelf: "center",
           }}
-          className="w-[full] border rounded-md mx-10 p-4"
+          className="w-[full] h-[200px] overflow-y-scroll border rounded-md mx-5 p-4"
         >
           <div
             className="flex flex-wrap justify-between mx-5"
             style={{ gap: "10px" }}
           >
-            {questionStatuses.map((status: any, index: any) => (
+            {Array.from({ length: totalQuestions }, (_, index) => (
               <QuestionDigit
                 key={index}
-                status={status}
+                status={questionStatuses[index]}
                 number={index + 1}
                 onClick={(questionNumber: number) =>
                   setQuestion(questionNumber - 1)
@@ -132,14 +141,24 @@ function MockTestRightSideComponent({ questionStatuses, setQuestion }: any) {
           </div>
         </div>
       </section>
+      <button
+        style={{
+          backgroundColor: primary_color,
+          alignSelf: "flex-end",
+          width: "80%",
+        }}
+        className="bg-blue-500 text-white px-4 mx-10 py-2 rounded-lg mt-40"
+      >
+        End Test
+      </button>
     </div>
   );
 }
 
 export default MockTestRightSideComponent;
 
-const QuestionDigit = ({ status, number, onClick }: any) => {
-  let backgroundColor = "";
+const QuestionDigit = ({ status, number, onClick, totalQuestions }: any) => {
+  let backgroundColor = "grey";
 
   switch (status) {
     case "answered":
@@ -164,22 +183,25 @@ const QuestionDigit = ({ status, number, onClick }: any) => {
       onClick(number);
     }
   };
+
   return (
-    <div
-      style={{
-        backgroundColor: `${backgroundColor}`,
-        borderRadius: "50%",
-        width: 30,
-        height: 30,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        margin: "0 5px",
-        cursor: "pointer",
-      }}
-      onClick={handleClick}
-    >
-      <span className="text-white">{number}</span>
-    </div>
+    <>
+      <div
+        style={{
+          backgroundColor: `${backgroundColor}`,
+          borderRadius: "50%",
+          width: 30,
+          height: 30,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          margin: "0 5px",
+          cursor: "pointer",
+        }}
+        onClick={handleClick}
+      >
+        <span className="text-white">{number}</span>
+      </div>
+    </>
   );
 };

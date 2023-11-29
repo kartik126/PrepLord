@@ -29,7 +29,8 @@ const Modal = () => {
   const exam: any = useRecoilValue(exams);
   const selectedExam: any = useRecoilState(myExam);
 
-  const handleExamClick = (index: number, exam_name:string) => {
+  const handleExamClick = (index: number, exam_name: string) => {
+    localStorage.setItem("modalShown", "true");
     setSelectedExamIndex(index);
     setSelectedExam(exam[index]._id);
     localStorage.setItem("myExamId", exam[index]._id);
@@ -37,10 +38,16 @@ const Modal = () => {
     console.log(selectedExam);
   };
 
+  useEffect(() => {
+    console.log(selectedExam);
+  }, [selectedExam]);
+
+  const isModalShown = typeof localStorage !== 'undefined' && localStorage.getItem("modalShown");
+
   return (
     <div
       className={`fixed top-0 left-0 flex items-center justify-center w-full h-full bg-gray-800 bg-opacity-50 z-10 ${
-        isModalOpen ? "" : "hidden"
+        isModalOpen && isModalShown !== "true" ? "" : "hidden"
       }`}
     >
       <div className="bg-white p-4 rounded shadow-lg w-1/2">

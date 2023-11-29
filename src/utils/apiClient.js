@@ -11,6 +11,8 @@ const apiClient = {
     getInstitutes: "api/get-institutes",
     getPapers: "api/previous-year-papers",
     getInstituteDetails: "api/institute-details",
+    getTestList: "api/test-series",
+    getMockTest: "api/mock-test",
     getBooks:"api/book-store"
   },
 
