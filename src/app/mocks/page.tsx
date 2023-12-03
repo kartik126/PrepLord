@@ -26,13 +26,11 @@ function Page() {
     const exam_name: any = localStorage.getItem("myExamName");
     setexam(exam_name);
     getTestList();
-  }, []);
+  }, [testsData,exam]);
 
   const getTestList = async () => {
     try {
-      const res = await apiClient.get(`${apiClient.Urls.getTestList}/${exam}`, {
-        cache: "force-cache",
-      });
+      const res = await apiClient.get(`${apiClient.Urls.getTestList}/${exam}`);
       console.log("dataaaaa", res);
       if (res.success) {
         setTestsData(res.data);
