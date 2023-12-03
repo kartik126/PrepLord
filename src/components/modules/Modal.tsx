@@ -42,7 +42,7 @@ const Modal = () => {
     console.log(selectedExam);
   }, [selectedExam]);
 
-  const isModalShown = localStorage.getItem("modalShown");
+  const isModalShown = typeof window !== 'undefined' && localStorage.getItem("modalShown");
 
   return (
     <div
