@@ -21,7 +21,7 @@ function CityCard({ city, key }: any) {
         city: city.name,
       },
     }}>
-      <div className="shadow-md cursor-pointer relative w-[180px] h-[230px] rounded-lg group overflow-hidden">
+      <div className="shadow-md mx-3 cursor-pointer relative w-[150px] md:w-[180px] h-[230px] rounded-lg group overflow-hidden">
         <div className="relative w-full h-full transition-transform transform-gpu group-hover:scale-105">
           <Image
             src={city.image}

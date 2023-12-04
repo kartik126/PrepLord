@@ -15,7 +15,7 @@ export default function Books() {
     <>
       <Header />
       <div className="flex flex-row px-10 pt-20">
-        <div className="flex flex-row pt-10 w-[70%] flex-wrap">
+        <div className="flex flex-row pt-10 w-[100%] lg:w-[70%] flex-wrap">
           {loading === true ? (
             <p>Loading...</p>
           ) : (
@@ -28,7 +28,7 @@ export default function Books() {
             })
           )}
         </div>
-        <div className="w-[30%]">
+        <div className="w-[30%] hidden lg:block">
           <EnquiryFormStatic />
         </div>
       </div>

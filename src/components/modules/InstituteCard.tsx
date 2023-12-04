@@ -35,7 +35,7 @@ function InstituteCard({
   isLoading,
 }: institutesInterface) {
   return (
-      <div className="relative cursor-pointer w-3/4 h-fit p-2 py-3 flex flex-row border-[1.5px] border-gray-300 rounded-lg shadow-md hover:shadow-lg mb-5">
+      <div className="relative cursor-pointer w-100 sm:w-3/4 h-fit p-2 py-3 flex flex-row border-[1.5px] border-gray-300 rounded-lg shadow-md hover:shadow-lg mb-5">
         <div className="h-100">
           <Image
             src={image_url}

@@ -7,7 +7,7 @@ import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 function SearchBanner() {
   return (
     <div className="flex items-center justify-between bg-[#205383] h-[400px] px-10 text-white">
-      <div className="flex flex-col w-1/2">
+      <div className="flex flex-col w-100 sm:w-1/2">
         <h1 className="text-3xl font-[600]">
           YOUR PATH TO <br/> ACADEMIC EXCELLENCE STARTS HERE..
         </h1>
@@ -29,7 +29,7 @@ function SearchBanner() {
           </div>
         </div>
       </div>
-      <div className="flex flex-row justify-end">
+      <div className="flex flex-row justify-end block hidden sm:block">
       <Image src={ExamBroIllustration} width={380} alt="" className="animate-jump"/>
       </div>
     </div>

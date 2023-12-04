@@ -22,7 +22,7 @@ export default function ListboxComponent({ defaultValue }: ListbioxProps) {
   const [selected, setSelected] = useState(default_value);
 
   return (
-    <div className=" w-40 z-10">
+    <div className="w-40 z-10 mx-2">
       {/* <p className='text-xs font-semibold text-blue-900'>Select Location</p> */}
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative mt-1 ">

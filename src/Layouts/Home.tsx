@@ -79,21 +79,20 @@ function Home({ data }: any) {
       <Header />
       <div style={{ paddingTop: "6%" }}>
         <SearchBanner />
-        <div className="flex flex-row w-100 pt-20">
+        <div className="flex flex-col md:flex-row w-100 px-10 pt-20">
           <div
-            className="flex items-center justify-center "
-            style={{ width: "30%" }}
+            className="flex items-center justify-center w-[30%] hidden sm:block"
           >
             <AdSpace institute={instituteInfo} />
           </div>
-          <div className=" flex justify-center" style={{ width: "70%" }}>
+          <div className="flex justify-center w-[100%] sm:w-[70%]">
             <SelectExam />
           </div>
         </div>
         <Slider />
 
         <div className="" style={{ padding: "6% 10%" }}>
-          <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row justify-between items-center ">
             <h1 className="text-3xl text-gray-700 text-left font-light text-left ">
               Popular Institutes in{" "}
               <span className="font-normal" style={{ color: primary_color }}>
@@ -102,7 +101,7 @@ function Home({ data }: any) {
             </h1>
             <Button text={"View All"} link="/institutes" />
           </div>
-          <div className="flex flex-row justify-between py-10">
+          <div className="flex flex-row justify-between py-10 overflow-x-auto">
             {cities.map((city, index) => (
               <CityCard key={index} city={city} />
             ))}
