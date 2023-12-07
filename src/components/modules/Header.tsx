@@ -26,6 +26,8 @@ import Login from "../layouts/Login";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useExams } from "@/hooks/useExams";
 import { signIn, signOut, useSession } from "next-auth/react";
+import RightDrawer from "./Drawer";
+import CartItems from "./CartItems";
 
 interface examList {
   name: string;
@@ -50,8 +52,22 @@ export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [open, setopen] = useState(false);
 
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const handleOpenDrawer = () => {
+    setIsDrawerOpen(true);
+  };
+
+  const handleCloseDrawer = () => {
+    setIsDrawerOpen(false);
+  };
+
   return (
     <>
+      {/* cart items drawer */}
+      <RightDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer}>
+        <CartItems/>
+      </RightDrawer>
       {/* <Login open={open} setopen={setopen} /> */}
       <header className="bg-white w-[100%] fixed z-40 shadow-md">
         <nav
@@ -180,7 +196,26 @@ export default function Example() {
             >
               Job Alerts
             </Link>
+            <div className="flex cursor-pointer" onClick={handleOpenDrawer}>
+              {/* cart icon */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="9" cy="21" r="1" />
+                <circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 1.92 1.61h10.8a2 2 0 0 0 1.92-1.61L23 6H6" />
+              </svg>
+            </div>
           </Popover.Group>
+
           {status === "authenticated" ? (
             <>
               <div className="hidden  lg:flex lg:flex-1 lg:justify-end">

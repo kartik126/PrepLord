@@ -30,8 +30,8 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
           Exam Type: {book.examType}
         </p> */}
       <div className="flex flex-row items-center justify-between">
-        <p className="text-gray-700 text-center font-semibold text-red-500">Price: ₹{book.price}</p>
-        <button className="text-sm rounded-md bg-[#205383] text-white px-3 py-1">Buy</button>
+        <p className="text-xs text-gray-700 text-center font-semibold text-red-500">Price: ₹{book.price}</p>
+        <button className="text-xs rounded-md bg-[#205383] text-white px-3 py-1">Add to Cart</button>
         </div>
       </div>
     </div>
