@@ -1,15 +1,20 @@
+import { connect } from "@/dbConfig/dbConfig";
 import Book from "@/models/BookStore";
 import { Cart, CartItem } from "@/models/Cart";
 import { NextResponse } from "next/server";
 
+connect();
+
 export async function POST(request: Request, { params }: any) {
-  const { book_id } = params;
-
-  const requestBody = await request.json();
-
-  const quantity = requestBody.quantity;
 
   try {
+
+    const { book_id } = params;
+
+    const requestBody = await request.formData();
+  
+    const quantity:any = requestBody.get("quantity");
+
     const book = await Book.findById(book_id);
 
     if (!book) {
@@ -19,7 +24,14 @@ export async function POST(request: Request, { params }: any) {
     const totalPrice = book.price * quantity;
 
     const cartItem = new CartItem({
-      book: book._id,
+      book: {
+        _id: book._id,
+        title: book.title,
+        author: book.author,
+        image: book.image,
+        price: book.price,
+        examType: book.examType,
+      },
       quantity,
       totalPrice,
     });
@@ -31,7 +43,7 @@ export async function POST(request: Request, { params }: any) {
         $inc: { totalPrice },
       },
       { upsert: true, new: true }
-    );
+    )
 
     return NextResponse.json({
       message: "Item updated successfully",
@@ -42,16 +54,5 @@ export async function POST(request: Request, { params }: any) {
     return NextResponse.json({
       message: "Failed to add Item",
     });
-  }
-}
-
-
-export async function GET(request: Request) {
-  try {
-    const cart = await Cart.findOne();
-    return NextResponse.json(cart);
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: 'Internal Server Error' });
   }
 }

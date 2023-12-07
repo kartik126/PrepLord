@@ -16,7 +16,7 @@ const cartItemSchema = new mongoose.Schema({
   },
 });
 
-const CartItem = mongoose.model("CartItem", cartItemSchema);
+const CartItem = mongoose.models.CartItem ||  mongoose.model("CartItem", cartItemSchema);
 
 const cartSchema = new mongoose.Schema({
   items: [cartItemSchema],
