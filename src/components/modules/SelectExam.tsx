@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { exams, myExam } from "@/recoil/store";
 import Link from "next/link";
+import { useExams } from "@/hooks/useExams";
 
 interface examInterface {
   _id: string;
@@ -13,7 +14,11 @@ interface examInterface {
 }
 
 function SelectExam() {
-  const allExams = useRecoilValue(exams);
+  // const allExams = useRecoilValue(exams);
+  const examList = useExams();
+
+  console.log("exam list from selected exam",examList);
+
   const [selectedExamId, setSelectedExamId] = useRecoilState(myExam);
 
   useEffect(() => {
@@ -21,14 +26,15 @@ function SelectExam() {
     setSelectedExamId(savedExamId || "");
   }, []);
 
-  const handleExamClick = (id: string) => {
+  const handleExamClick = (id: string,exam_name:string) => {
     setSelectedExamId(id);
     localStorage?.setItem("myExamId", id);
+    localStorage?.setItem("myExamName",exam_name)
   };
 
   return (
     <>
-      {selectedExamId && (
+
         <div className="w-[100%] px-10 rounded-lg m-4">
           <h1 className="text-3xl text-gray-700 text-center font-light">
             Choose Your{" "}
@@ -37,7 +43,7 @@ function SelectExam() {
             </span>{" "}
           </h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gapx-2">
-            {allExams.map((exam: examInterface, index) => {
+            {examList?.map((exam: examInterface, index) => {
               const { _id, name } = exam;
               const isSelected = _id === selectedExamId;
 
@@ -45,7 +51,7 @@ function SelectExam() {
                 <div
                   key={index}
                   className="flex flex-row justify-center py-10 cursor-pointer"
-                  onClick={() => handleExamClick(_id)}
+                  onClick={() => handleExamClick(_id,name)}
                 >
                   <div
                     className={`w-[170px] h-[170px] bg-white py-5 rounded-[15px] flex flex-col justify-between items-center border border-1 shadow-lg overflow-hidden hover:shadow-xl transition duration-300 transform ${
@@ -64,7 +70,7 @@ function SelectExam() {
                       />
                     </div>
                     <p className="text-lg font-semibold">{name}</p>
-                    <Link href={`exams/${exam.name}`}>
+                    <Link href={`exams/${name}`}>
                       <button className="text-white px-3 py-1 rounded-lg bg-yellow-400 text-sm hover:font-bold">
                         Learn More
                       </button>
@@ -75,7 +81,7 @@ function SelectExam() {
             })}
           </div>
         </div>
-      )}
+      
     </>
   );
 }
