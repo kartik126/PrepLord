@@ -17,6 +17,7 @@ import MobileCategoryFilter from "@/components/modules/MobileCategoryFilter";
 import { useInstitutes } from "@/hooks/useInstitutes";
 import apiClient from "@/utils/apiClient";
 import { useExams } from "@/hooks/useExams";
+import Loader from "../Loader";
 
 const colors = [
   "bg-blue-200",
@@ -37,33 +38,6 @@ const sortOptions = [
   { name: "Price: High to Low", href: "#", current: false },
 ];
 
-const ExamsSubcategory = [
-  {
-    name: "Comprehensive",
-  },
-  {
-    name: "Prelims",
-  },
-  {
-    name: "Mains",
-  },
-  {
-    name: "Essays",
-  },
-  {
-    name: "Ethics",
-  },
-  {
-    name: "Test Series",
-  },
-  {
-    name: "Optional",
-  },
-  {
-    name: "Interviews",
-  },
-];
-
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -75,9 +49,7 @@ export default function Exams({ params }: { params: { slug: string } }) {
 
   const [subCat, setsubCat] = useState<String[]>([]);
 
-  const exam_data = useExams();
-
-  console.log(exam_data);
+  const { exams, isLoading }: any = useExams();
 
   useEffect(() => {
     const my_exam_id = localStorage.getItem("myExamId");
@@ -181,35 +153,43 @@ export default function Exams({ params }: { params: { slug: string } }) {
                     {/* <h1 className="text-xl">Explore all exams</h1> */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                       {/* Map over items and apply colors */}
-                      {exam_data
-                        ?.filter((e: any) => e._id === myExamId)
-                        ?.map((key: any, index) => (
-                          <>
-                            {key?.categories?.map((category: any, ind: any) => {
-                              const lowercaseCategoryName =
-                                category.name.toLowerCase();
-                              return (
-                                <Link
-                                key={ind}
-                                  href={{
-                                    pathname: `/institutes/${lowercaseCategoryName}`,
-                                    query: {
-                                      courses: lowercaseCategoryName,
-                                    }
-                                  }}
-                                >
-                                  <div
-                                    className={`cursor-pointer hover:font-bold p-4 py-8 flex flex-col text-md items-center text-center font-normal text-gray-600 rounded-md ${colors[ind % colors.length]
-                                      }`}
-                                  >
-                                    <NewspaperIcon className="w-8 pb-3" />
-                                    {category.name}
-                                  </div>
-                                </Link>
-                              );
-                            })}
-                          </>
-                        ))}
+
+                      {isLoading ? (
+                        <Loader />
+                      ) : (
+                        exams
+                          ?.filter((e: any) => e._id === myExamId)
+                          ?.map((key: any) => (
+                            <>
+                              {key?.categories?.map(
+                                (category: any, ind: any) => {
+                                  const lowercaseCategoryName =
+                                    category.name.toLowerCase();
+                                  return (
+                                    <Link
+                                      key={ind}
+                                      href={{
+                                        pathname: `/institutes/${lowercaseCategoryName}`,
+                                        query: {
+                                          courses: lowercaseCategoryName,
+                                        },
+                                      }}
+                                    >
+                                      <div
+                                        className={`cursor-pointer hover:font-bold p-4 py-8 flex flex-col text-md items-center text-center font-normal text-gray-600 rounded-md ${
+                                          colors[ind % colors.length]
+                                        }`}
+                                      >
+                                        <NewspaperIcon className="w-8 pb-3" />
+                                        {category.name}
+                                      </div>
+                                    </Link>
+                                  );
+                                }
+                              )}
+                            </>
+                          ))
+                      )}
                     </div>
                   </div>
                 </div>

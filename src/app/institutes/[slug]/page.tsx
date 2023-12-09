@@ -25,6 +25,7 @@ import ListboxComponent from "@/components/elements/Listbox";
 import { cities } from "@/app/config/static";
 import { useRecoilState } from "recoil";
 import { cityState, classModeState } from "@/recoil/filterInstituteState";
+import Loader from "../Loader";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -48,13 +49,11 @@ export default function Institutes({ params }: { params: { slug: string } }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [city, setCity] = useRecoilState(cityState || cityParams);
   const [classMode, setClassMode] = useRecoilState(classModeState);
-  
-  console.log("i am city", Object.values(classMode)[0]);
 
   const { institutes, isLoading }: any = useInstitutes(
     courses || "",
     Object.values(city)[0] || "", //city
-    Object.values(classMode)[0] || "", //class mode
+    Object.values(classMode)[0] || "" //class mode
   );
 
   console.log("institeue", institutes);
@@ -160,8 +159,8 @@ export default function Institutes({ params }: { params: { slug: string } }) {
                       defaultValue={"Select Location"}
                     />
                     <ListboxComponent
-                       selected={classMode}
-                       setSelected={setClassMode}
+                      selected={classMode}
+                      setSelected={setClassMode}
                       data={[{ name: "online" }, { name: "offline" }]}
                       defaultValue={"Online/Offline"}
                     />
@@ -177,7 +176,7 @@ export default function Institutes({ params }: { params: { slug: string } }) {
                   <div className="container mx-auto p-4">
                     {/* <h1 className="text-xl">Explore all exams</h1> */}
                     <div className="flex flex-col ">
-                      {institutes?.institutes?.length > 0 ? (
+                      {!isLoading ? (
                         institutes?.institutes?.map((data: any, index: any) => {
                           return (
                             <Link
@@ -193,7 +192,7 @@ export default function Institutes({ params }: { params: { slug: string } }) {
                           );
                         })
                       ) : (
-                        <h1 className="text-center">no data found</h1>
+                        <Loader />
                       )}
                     </div>
                   </div>

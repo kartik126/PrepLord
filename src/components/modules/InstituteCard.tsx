@@ -6,7 +6,6 @@ import logo from "../../../public/logo-hindi-main.webp";
 import { primary_color } from "@/utils/Colors";
 import StarRating from "../elements/StarRatings";
 import Loader from "@/app/institutes/Loader";
-import Link from "next/link";
 
 interface institutesInterface {
   name: string;
@@ -34,7 +33,9 @@ function InstituteCard({
   rating,
   isLoading,
 }: institutesInterface) {
+
   return (
+    <>
       <div className="relative cursor-pointer w-100 sm:w-3/4 h-fit p-2 py-3 flex flex-row border-[1.5px] border-gray-300 rounded-lg shadow-md hover:shadow-lg mb-5">
         <div className="h-100">
           <Image
@@ -60,6 +61,7 @@ function InstituteCard({
           </button>
         </div>
       </div>
+      </>
   );
 }
 

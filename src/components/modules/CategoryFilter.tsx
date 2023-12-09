@@ -68,7 +68,7 @@ export default function CategoryFilter() {
   const [myExamId, setmyExamId] = useState<String>("");
 
 
-  const exam_data = useExams();
+  const {exams} = useExams();
 
   useEffect(() => {
     const my_exam_id = localStorage.getItem("myExamId");
@@ -84,7 +84,7 @@ export default function CategoryFilter() {
           role="list"
           className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900"
         >
-          {exam_data
+          {exams
             ?.filter((e: any) => e._id === myExamId)
             ?.map((key: any) => (
               <>

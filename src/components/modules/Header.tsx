@@ -39,7 +39,8 @@ function classNames(...classes: any) {
 }
 
 export default function Example() {
-  const examList = useExams();
+  const { exams, isLoading }: any = useExams();
+
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [open, setopen] = useState(false);
@@ -128,7 +129,7 @@ export default function Example() {
               >
                 <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
                   <div className="p-4">
-                    {examList.map((item: examList) => (
+                    {exams?.map((item: examList) => (
                       <div
                         key={item.name}
                         className="group relative flex items-center gap-x-6 rounded-lg p-3 text-sm leading-6 hover:bg-gray-50"
@@ -274,7 +275,7 @@ export default function Example() {
                           />
                         </Disclosure.Button>
                         <Disclosure.Panel className="mt-2 space-y-2">
-                          {[...examList, ...callsToAction].map((item) => (
+                          {[...exams, ...callsToAction].map((item) => (
                             <Disclosure.Button
                               key={item.name}
                               as="a"

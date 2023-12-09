@@ -15,9 +15,7 @@ interface examInterface {
 
 function SelectExam() {
   // const allExams = useRecoilValue(exams);
-  const examList = useExams();
-
-  console.log("exam list from selected exam",examList);
+  const { exams, isLoading }: any = useExams();
 
   const [selectedExamId, setSelectedExamId] = useRecoilState(myExam);
 
@@ -43,7 +41,7 @@ function SelectExam() {
             </span>{" "}
           </h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gapx-2">
-            {examList?.map((exam: examInterface, index) => {
+            {exams?.map((exam: examInterface, index:any) => {
               const { _id, name } = exam;
               const isSelected = _id === selectedExamId;
 
