@@ -21,6 +21,9 @@ import Login from "../layouts/Login";
 import { useExams } from "@/hooks/useExams";
 import RightDrawer from "./Drawer";
 import CartItems from "./CartItems";
+import Otp from "../layouts/Otp";
+import { useRecoilValue } from "recoil";
+import { authState } from "@/recoil/authState";
 
 interface examList {
   name: string;
@@ -40,8 +43,13 @@ export default function Example() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [open, setopen] = useState(false);
+  const [otpOpen, setotpOpen] = useState(false);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const { isAuthenticated, user } = useRecoilValue(authState);
+
+  console.log("isAuthenticated", isAuthenticated, user);
 
   const handleOpenDrawer = () => {
     setIsDrawerOpen(true);
@@ -51,10 +59,16 @@ export default function Example() {
     setIsDrawerOpen(false);
   };
 
+  const handleOtpOpen = () => {
+    setotpOpen(true);
+  };
+
   return (
     <>
       {/* Login modal */}
-      <Login open={open} setopen={setopen} />
+      <Login open={open} setopen={setopen} hadleOtpOpen={handleOtpOpen} />
+      {/* Otp modal */}
+      <Otp open={otpOpen} setopen={setotpOpen} />
       {/* cart items drawer */}
       <RightDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer}>
         <CartItems />

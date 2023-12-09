@@ -24,7 +24,7 @@ export async function POST(req: Request) {
 
     if (!user) {
       console.log("User not found:", email, phone);
-      return NextResponse.json({ message: "User not found" });
+      return NextResponse.json({success:false,message: "User not found" });
     }
 
     return NextResponse.json({

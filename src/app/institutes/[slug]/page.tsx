@@ -20,18 +20,11 @@ import { primary_color } from "@/utils/Colors";
 import InstituteCard from "@/components/modules/InstituteCard";
 import Filters from "@/components/modules/Filters";
 import { useInstitutes } from "@/hooks/useInstitutes";
-import { useRouter, useSearchParams } from 'next/navigation';
-
-const colors = [
-  "bg-blue-200",
-  "bg-green-200",
-  "bg-red-200",
-  "bg-yellow-200",
-  "bg-purple-200",
-  "bg-orange-200",
-  "bg-cyan-200",
-  "bg-red-200",
-];
+import { useRouter, useSearchParams } from "next/navigation";
+import ListboxComponent from "@/components/elements/Listbox";
+import { cities } from "@/app/config/static";
+import { useRecoilState } from "recoil";
+import { cityState, classModeState } from "@/recoil/filterInstituteState";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -46,18 +39,23 @@ function classNames(...classes: any) {
 }
 
 export default function Institutes({ params }: { params: { slug: string } }) {
-
   const searchParams = useSearchParams();
 
-  const city = searchParams.get('city');
+  const cityParams = searchParams.get("city");
 
-  const courses = searchParams.get('courses');
-
-  console.log("query paramsssssssssssssssssssssssssssss", city);
-
-  const { institutes, isLoading }: any = useInstitutes((courses || ''), (city || ''));
+  const courses = searchParams.get("courses");
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [city, setCity] = useRecoilState(cityState || cityParams);
+  const [classMode, setClassMode] = useRecoilState(classModeState);
+  
+  console.log("i am city", Object.values(classMode)[0]);
+
+  const { institutes, isLoading }: any = useInstitutes(
+    courses || "",
+    Object.values(city)[0] || "", //city
+    Object.values(classMode)[0] || "", //class mode
+  );
 
   console.log("institeue", institutes);
 
@@ -153,21 +151,50 @@ export default function Institutes({ params }: { params: { slug: string } }) {
 
                 {/* Exams subcategories grid */}
                 <div className="lg:col-span-3">
-                  {/* Filters component  */}
-                  <Filters />
+                  {/* Filters  */}
+                  <div className="flex flex-row justify-between items-center px-4 pb-3 w-100 relative h-fit">
+                    <ListboxComponent
+                      selected={city}
+                      setSelected={setCity}
+                      data={cities}
+                      defaultValue={"Select Location"}
+                    />
+                    <ListboxComponent
+                       selected={classMode}
+                       setSelected={setClassMode}
+                      data={[{ name: "online" }, { name: "offline" }]}
+                      defaultValue={"Online/Offline"}
+                    />
+                    <ListboxComponent
+                      data={[{ name: "Jan-june" }, { name: "june-nov" }]}
+                      defaultValue={"Select Batch"}
+                    />
+                    <ListboxComponent
+                      data={[{ name: "English" }, { name: "Hindi" }]}
+                      defaultValue={"Select Language"}
+                    />
+                  </div>
                   <div className="container mx-auto p-4">
                     {/* <h1 className="text-xl">Explore all exams</h1> */}
                     <div className="flex flex-col ">
-                      {institutes?.institutes?.length > 0  ?
+                      {institutes?.institutes?.length > 0 ? (
                         institutes?.institutes?.map((data: any, index: any) => {
-                          return(
-                          <Link key={data?._id} href={`/institute-details/${data?._id}`}>
-                          <InstituteCard {...data} key={index} isLoading={isLoading} />
-                          </Link>)
+                          return (
+                            <Link
+                              key={data?._id}
+                              href={`/institute-details/${data?._id}`}
+                            >
+                              <InstituteCard
+                                {...data}
+                                key={index}
+                                isLoading={isLoading}
+                              />
+                            </Link>
+                          );
                         })
-                        :
+                      ) : (
                         <h1 className="text-center">no data found</h1>
-                      }
+                      )}
                     </div>
                   </div>
                 </div>

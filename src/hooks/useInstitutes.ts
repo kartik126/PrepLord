@@ -5,8 +5,8 @@ import apiClient, { localBaseUrl } from "@/utils/apiClient";
 
 export function useInstitutes(
   courses: string,
-  city?: string,
-  class_mode?: string,
+  city?: any,
+  classMode?: string,
   language?: string
 ) {
   const [institutes, setInstitutes] = useState([]);
@@ -34,7 +34,7 @@ export function useInstitutes(
     }
 
     fetchExams();
-  }, [courses, city, class_mode, language]);
+  }, [courses, city, classMode, language]);
 
   return { institutes, isLoading };
 }

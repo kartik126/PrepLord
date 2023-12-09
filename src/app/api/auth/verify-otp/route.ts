@@ -8,11 +8,7 @@ connect();
 
 export async function POST(req: Request) {
   try {
-    const { email, phone, otp } = (await req.json()) as {
-      email: string;
-      phone: string;
-      otp: string;
-    };
+    const { email, phone, otp } =await req.json();
 
     let user = null;
 
@@ -31,7 +27,6 @@ export async function POST(req: Request) {
     if (!user) {
       return NextResponse.json({ message: "User not found,Please Register" });
     }
-
     // Check if the OTP is valid
     if (otp === "1234") {
       var token = jwt.sign(
@@ -44,7 +39,7 @@ export async function POST(req: Request) {
         }
       );
 
-      NextResponse.json({
+      return NextResponse.json({
         success: true,
         message: "OTP verification successful",
         token: token,

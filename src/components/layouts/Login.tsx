@@ -1,15 +1,34 @@
-"use client"
 import { primary_color } from "@/utils/Colors";
 import React, { useState } from "react";
 import Signup from "./Signup";
+import apiClient from "@/utils/apiClient";
+import { useRecoilState } from "recoil";
+import { phoneState } from "@/recoil/authState";
 
-function Login({ open, setopen }: any) {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+function Login({ open, setopen,hadleOtpOpen }: any) {
   const [signupOpen, setsignupOpen] = useState(false);
+  const [phone, setPhone] = useRecoilState(phoneState);
 
   const closeModal = () => {
-    // setIsModalOpen(false);
     setopen(false);
+  };
+
+  const handleSendOtp = async () => {
+    try {
+      const response = await apiClient.post(`${apiClient.Urls.sendOtp}`, {
+        phone: phone,
+      });
+      const data = response;
+      if(data.success) {
+        alert(data.message);
+        hadleOtpOpen();
+      }
+      else{
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching:", error);
+    }
   };
 
   return (
@@ -20,7 +39,7 @@ function Login({ open, setopen }: any) {
           open ? "" : "hidden"
         }`}
       >
-        <div className="bg-white p-4 rounded shadow-lg w-1/3">
+        <div className="bg-white p-4 rounded shadow-lg w-1/3 ">
           <button
             onClick={closeModal}
             className="float-right text-gray-700 hover:text-gray-900"
@@ -33,7 +52,6 @@ function Login({ open, setopen }: any) {
                 Sign in to your account
               </h1>
               <form className="space-y-4 md:space-y-6" action="#">
-                
                 <div>
                   <label
                     htmlFor="email"
@@ -42,6 +60,8 @@ function Login({ open, setopen }: any) {
                     Your phone
                   </label>
                   <input
+                    value={phone}
+                    onChange={(e)=>setPhone(e.target.value)}
                     type="text"
                     name="phone"
                     id="phone"
@@ -70,12 +90,12 @@ function Login({ open, setopen }: any) {
                       </label>
                     </div>
                   </div>
-           
                 </div>
                 <button
                   type="submit"
                   className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                   style={{ backgroundColor: primary_color }}
+                  onClick={handleSendOtp}
                 >
                   Send Otp
                 </button>

@@ -4,7 +4,7 @@ import ListboxComponent from '../elements/Listbox'
 
 function Filters() {
   return (
-    <div className='flex flex-row justify-between items-center px-4 pb-3 w-100 relative h-fit overflow-x-auto'>
+    <div className='flex flex-row justify-between items-center px-4 pb-3 w-100 relative h-fit'>
      <ListboxComponent defaultValue={'Select Location'}/>
      <ListboxComponent defaultValue={'Online/Offline'}/>
      <ListboxComponent defaultValue={'Select Batch'}/>
