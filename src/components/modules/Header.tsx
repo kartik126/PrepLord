@@ -1,14 +1,9 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import {
-  ArrowPathIcon,
   Bars3Icon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
   XMarkIcon,
   BookOpenIcon,
 } from "@heroicons/react/24/outline";
@@ -23,7 +18,6 @@ import preplordLogo from "../../../public/logo/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import Login from "../layouts/Login";
-import { useRecoilState, useRecoilValue } from "recoil";
 import { useExams } from "@/hooks/useExams";
 import RightDrawer from "./Drawer";
 import CartItems from "./CartItems";
@@ -44,8 +38,6 @@ function classNames(...classes: any) {
 export default function Example() {
   const examList = useExams();
 
-  console.log("statusss", status);
-
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [open, setopen] = useState(false);
 
@@ -61,11 +53,12 @@ export default function Example() {
 
   return (
     <>
+      {/* Login modal */}
+      <Login open={open} setopen={setopen} />
       {/* cart items drawer */}
       <RightDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer}>
-        <CartItems/>
+        <CartItems />
       </RightDrawer>
-      {/* <Login open={open} setopen={setopen} /> */}
       <header className="bg-white w-[100%] fixed z-40 shadow-md">
         <nav
           className="mx-auto flex items-center justify-between p-3 lg:px-8"
@@ -213,17 +206,16 @@ export default function Example() {
             </div>
           </Popover.Group>
 
-            <div className="hidden  lg:flex lg:flex-1 lg:justify-end">
-              <a
-                href="#"
-                className="flex flex-row items-center justify-between text-sm bg-[#205383] font-semibold leading-6 text-white p-3 rounded-lg"
-                // onClick={() => signIn()}
-              >
-                <UserCircleIcon className="h-5 w-7" /> Log in{" "}
-                <span aria-hidden="true"></span>
-              </a>
-            </div>
-    
+          <div className="hidden  lg:flex lg:flex-1 lg:justify-end">
+            <a
+              href="#"
+              className="flex flex-row items-center justify-between text-sm bg-[#205383] font-semibold leading-6 text-white p-3 rounded-lg"
+              onClick={() => setopen(true)}
+            >
+              <UserCircleIcon className="h-5 w-7" /> Log in{" "}
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
         </nav>
         <Dialog
           as="div"
@@ -301,16 +293,15 @@ export default function Example() {
                     Company
                   </a>
                 </div>
-              
-                  <div className="py-6">
-                    <button
-                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900  hover:bg-gray-50"
-                      onClick={() => alert("cliekced")}
-                    >
-                      Log in
-                    </button>
-                  </div>
-             
+
+                <div className="py-6">
+                  <button
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900  hover:bg-gray-50"
+                    onClick={() => alert("cliekced")}
+                  >
+                    Log in
+                  </button>
+                </div>
               </div>
             </div>
           </Dialog.Panel>
