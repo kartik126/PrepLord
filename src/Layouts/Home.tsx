@@ -73,10 +73,6 @@ const examCategories = [
 function Home({ data }: any) {
   const setExams = useSetRecoilState(exams);
 
-  const { data: session, status } = useSession();
-
-  console.dir("session:" + JSON.stringify(session));
-
   useEffect(() => {
     setExams(data);
   }, []);
