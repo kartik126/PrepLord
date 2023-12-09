@@ -18,17 +18,6 @@ import { primary_color } from "@/utils/Colors";
 import Button from "@/components/elements/Button";
 import { usePaper } from "@/hooks/usePapers";
 
-const colors = [
-  "bg-blue-200",
-  "bg-green-200",
-  "bg-red-200",
-  "bg-yellow-200",
-  "bg-purple-200",
-  "bg-orange-200",
-  "bg-cyan-200",
-  "bg-red-200",
-];
-
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
   { name: "Best Rating", href: "#", current: false },
@@ -37,35 +26,6 @@ const sortOptions = [
   { name: "Price: High to Low", href: "#", current: false },
 ];
 
-const papers = [
-  {
-    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
-  },
-  {
-    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
-  },
-  {
-    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
-  },
-  {
-    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
-  },
-  {
-    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
-  },
-  {
-    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
-  },
-  {
-    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
-  },
-  {
-    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
-  },
-  {
-    name: "UPSC Civil Services Prelims 2023: General Studies (SET - A - Held on 28 May)",
-  },
-];
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -74,8 +34,6 @@ function classNames(...classes: any) {
 export default function Papers({ params }: { params: { slug: string } }) {
 
   const { papers, isLoading }: any = usePaper("upsc");
-
-  console.log("HAHAHAHAHAHAHAHAHAHAHAHA",papers?.papers)
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 

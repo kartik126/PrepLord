@@ -20,14 +20,14 @@ import { useExams } from "@/hooks/useExams";
 import Loader from "../Loader";
 
 const colors = [
-  "bg-blue-200",
-  "bg-green-200",
-  "bg-red-200",
-  "bg-yellow-200",
-  "bg-purple-200",
-  "bg-orange-200",
-  "bg-cyan-200",
-  "bg-red-200",
+  "bg-blue-300",
+  "bg-green-300",
+  "bg-red-300",
+  "bg-yellow-300",
+  "bg-purple-300",
+  "bg-orange-300",
+  "bg-cyan-300",
+  "bg-red-300",
 ];
 
 const sortOptions = [
@@ -148,7 +148,7 @@ export default function Exams({ params }: { params: { slug: string } }) {
                 <CategoryFilter />
 
                 {/* Exams subcategories grid */}
-                <div className="lg:col-span-3">
+                <div className="lg:col-span-3 bg-gray-50 h-screen">
                   <div className="container mx-auto p-4">
                     {/* <h1 className="text-xl">Explore all exams</h1> */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
@@ -176,9 +176,7 @@ export default function Exams({ params }: { params: { slug: string } }) {
                                       }}
                                     >
                                       <div
-                                        className={`cursor-pointer hover:font-bold p-4 py-8 flex flex-col text-md items-center text-center font-normal text-gray-600 rounded-md ${
-                                          colors[ind % colors.length]
-                                        }`}
+                                        className={`cursor-pointer hover:font-bold p-4 py-8 flex flex-col text-md items-center text-center font-bold text-[#205383] rounded-md bg-blue-100 hover:shadow-lg`}
                                       >
                                         <NewspaperIcon className="w-8 pb-3" />
                                         {category.name}
