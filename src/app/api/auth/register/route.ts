@@ -1,37 +1,41 @@
+import { connect } from "@/dbConfig/dbConfig";
+import { Cart } from "@/models/Cart";
 import User from "@/models/User";
-import { hash } from "bcryptjs";
 import { NextResponse } from "next/server";
+
+connect();
 
 export async function POST(req: Request) {
   try {
-    const { name, email, password } = (await req.json()) as {
+    const { name, email, phone } = (await req.json()) as {
       name: string;
       email: string;
-      password: string;
+      phone: string;
     };
-    const hashed_password = await hash(password, 12);
 
-    const user = await User.findOne({ email });
+    const existingUser = await User.findOne({
+      $or: [{ email: email }, { phone: phone }],
+    });
 
-    if (user) {
-      return NextResponse.json({
-        message: "User already exists",
-      });
+    if (existingUser) {
+      return NextResponse.json({ message: "Email or phone already exists" });
     }
+
+    let cart = await Cart.create({});
 
     const setuser = new User({
       name,
       email: email.toLowerCase(),
-      password: hashed_password,
+      phone: phone,
+      cart: cart._id,
     });
 
     await setuser.save();
 
     return NextResponse.json({
-      user: {
-        name: user.name,
-        email: user.email,
-      },
+      success: true,
+      message: "User created successfully",
+      user: setuser,
     });
   } catch (error: any) {
     return new NextResponse(

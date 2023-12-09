@@ -2,7 +2,8 @@ import NextAuth, { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { connect } from "@/dbConfig/dbConfig"
-import User from "../../../../models/User"
+import User from "@/models/User"
+
 
 export const options : NextAuthOptions = {
 

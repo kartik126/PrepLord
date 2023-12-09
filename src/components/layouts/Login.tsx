@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Signup from "./Signup";
 
 function Login({ open, setopen }: any) {
-  console.log(open);
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [signupOpen, setsignupOpen] = useState(false);
 

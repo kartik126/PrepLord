@@ -1,4 +1,4 @@
-export const localBaseUrl = "https://preplord.vercel.app/";
+export const localBaseUrl = "http://localhost:3000/";
 export const localImgUrl = "https://preplord.vercel.app/";
 export const BaseUrl = "https://preplord.vercel.app/";
 export const ImgUrl = "https://preplord.vercel.app/";
@@ -13,7 +13,8 @@ const apiClient = {
     getInstituteDetails: "api/institute-details",
     getTestList: "api/test-series",
     getMockTest: "api/mock-test",
-    getBooks:"api/book-store"
+    getBooks:"api/book-store",
+    search:"api/search-exam",
   },
 
   make: function (url, method, params) {

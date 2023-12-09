@@ -12,8 +12,6 @@ export async function GET(request: Request, { params }: any) {
       exam: new RegExp(`^${exam}$`, "i"),
     }).populate("questions");
 
-    
-
     return NextResponse.json({ success: true, data: testSeries });
   } catch (error) {
     console.error("Error retrieving test series", error);

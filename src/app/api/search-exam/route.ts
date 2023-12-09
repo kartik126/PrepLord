@@ -6,8 +6,8 @@ connect();
 
 export async function POST(request: Request) {
   try {
-    const requestBody = await request.formData();
-    const searchQuery: any = requestBody.get("search");
+    const requestBody = await request.json();
+    const searchQuery: any = requestBody.search;
 
     if (searchQuery === null || searchQuery === undefined) {
       throw new Error("Search query not found in the request body.");
@@ -19,6 +19,12 @@ export async function POST(request: Request) {
     const searchResult = await Exams.find({
       name: regex,
     });
+
+    if (searchResult.length === 0) {
+      return NextResponse.json({
+        message: "No Results Found",
+      });
+    }
 
     return NextResponse.json({
       message: "success",
