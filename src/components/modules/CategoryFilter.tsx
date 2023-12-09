@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
@@ -62,13 +62,11 @@ function classNames(...classes: any) {
 }
 
 export default function CategoryFilter() {
-
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const [myExamId, setmyExamId] = useState<String>("");
 
-
-  const {exams} = useExams();
+  const { exams } = useExams();
 
   useEffect(() => {
     const my_exam_id = localStorage.getItem("myExamId");
@@ -82,34 +80,33 @@ export default function CategoryFilter() {
         <h3 className="sr-only">Categories</h3>
         <ul
           role="list"
-          className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900"
+          className="space-y-4 pb-6 text-sm font-medium text-gray-900"
         >
           {exams
             ?.filter((e: any) => e._id === myExamId)
             ?.map((key: any) => (
-              <>
-                {key.categories.map((category: any, index: number) => {
-                  return (
-                    <>
-                      {category?.subcategories?.map((subcategory: any) => {
-                        return (
-                          <li key={index}>
-                            <a href={""}>{subcategory.name}</a>
-                          </li>
-                        );
-                      })}
-                    </>
-                  );
-                })}
-              </>
+              <ul key={key._id}>
+                {key.categories.map((category: any) => (
+                  <li className="border-b border-gray-200 py-2 mb-2" key={category._id}>
+                    <a className="font-bold" href={""}>{category.name}</a>
+                    <ul>
+                      {category.subcategories.map((subcategory: any) => (
+                        <li className="font-normal pl-3 hover:text-blue-800" key={subcategory._id}>
+                          <a href={""}>{subcategory.name}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
             ))}
+
           {/* {subCategories.map((category) => (
             <li key={category.name}>
               <a href={category.href}>{category.name}</a>
             </li>
           ))} */}
         </ul>
-
       </form>
     </>
   );

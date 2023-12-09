@@ -119,7 +119,7 @@ function Page() {
           {/* Display data based on the selected type */}
           {selectedType === "Full Syllabus" && (
             <div className="flex flex-wrap mx-5" style={{ gap: "10px" }}>
-              {testsData.map((key,index) => {
+              {testsData?.map((key,index) => {
                 return (
                   <div key={index} className="mt-8" style={{ marginRight: 10 }}>
                     {/* Data for Full Syllabus */}
