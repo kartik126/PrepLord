@@ -17,6 +17,7 @@ const apiClient = {
     search:"api/search-exam",
     sendOtp:"api/auth/send-otp",
     verifyOtp:"api/auth/verify-otp",
+    subjects:"api/subjects",
   },
 
   make: function (url, method, params) {

@@ -4,6 +4,24 @@ import Header from "../../components/modules/Header";
 import { primary_color } from "@/utils/Colors";
 import Link from "next/link";
 import apiClient from "@/utils/apiClient";
+import MockTestCard from "@/components/modules/MockTestCard";
+
+interface Topic {
+  _id: string;
+  name: string;
+}
+
+interface Category {
+  _id: string;
+  name: string;
+  topics: Topic[];
+}
+
+interface Subject {
+  _id: string;
+  name: string;
+  categories: Category[];
+}
 
 function Page() {
   interface TestData {
@@ -17,22 +35,26 @@ function Page() {
   const [selectedType, setSelectedType] = useState("Full Syllabus");
   const [testsData, setTestsData] = useState<TestData[]>([]);
   const [exam, setexam] = useState("");
+  const [subjects, setsubjects] = useState([]);
+  const [subjectIndex, setsubjectIndex] = useState(0);
   const handleTypeChange = (type: any) => {
     setSelectedType(type);
     // You can implement logic here to fetch and display data based on the selected type
   };
 
   useEffect(() => {
-    const exam_name: any = localStorage.getItem("myExamName");
-    setexam(exam_name);
+    // setexam(exam_name);
+    getSubjectList();
     getTestList();
-  }, [testsData,exam]);
+  }, []);
 
   const getTestList = async () => {
+    const exam_name: any = localStorage.getItem("myExamName");
     try {
-      const res = await apiClient.get(`${apiClient.Urls.getTestList}/${exam}`);
-      console.log("dataaaaa", res);
+      const res = await apiClient.get(`${apiClient.Urls.getTestList}/${exam_name}`);
+
       if (res.success) {
+        console.log("dataaaaa", res);
         setTestsData(res.data);
       }
     } catch (error) {
@@ -40,19 +62,36 @@ function Page() {
       //  setinstitute(null);
     }
   };
+
+  const getSubjectList = async () => {
+    try {
+      const res = await apiClient.get(`${apiClient.Urls.subjects}`);
+      console.log("dataaaaa", res.data[0].categories);
+      if (res.success) {
+        setsubjects(res.data[0].categories);
+      }
+    } catch (error) {
+      console.error("Error fetching exams:", error);
+    }
+  };
+
+  const handleSubjectIndex = (index: number) => {
+    setsubjectIndex(index);
+  };
+
   return (
     <>
       <Header />
       <div className="flex bg-white pt-20">
-        <div className="w-1/6 p-10"></div>
-        <div className="w-2/3 p-5">
+        <div className="w-90">
           <div>
             <h1 className="font-medium text-2xl pt-3">
               Attempt {exam} Exams Mock Test
             </h1>
             <p>Start Your Free Mock Tests Here</p>
           </div>
-          {/* <div className="flex space-x-4 mt-4">
+
+          <div className="flex space-x-4 mt-4">
             <div
               onClick={() => handleTypeChange("Full Syllabus")}
               style={{
@@ -72,7 +111,7 @@ function Page() {
                   selectedType === "Full Syllabus" ? primary_color : "#333",
               }}
             >
-              <h4>Full Syllabus</h4>
+              <h4>Practice</h4>
             </div>
             <div
               onClick={() => handleTypeChange("Sectional")}
@@ -114,74 +153,52 @@ function Page() {
             >
               <h4>Topic Wise</h4>
             </div>
-          </div> */}
-
-          {/* Display data based on the selected type */}
-          {selectedType === "Full Syllabus" && (
-            <div className="flex flex-wrap mx-5" style={{ gap: "10px" }}>
-              {testsData?.map((key,index) => {
+          </div>
+          <div className="flex flex-row pt-10">
+            <div className="w-60 h-fit text-md font-normal text-gray-900 bg-white rounded-lg">
+              {subjects.map((subject: Subject, ind) => {
                 return (
-                  <div key={index} className="mt-8" style={{ marginRight: 10 }}>
-                    {/* Data for Full Syllabus */}
-                    <div className="cursor-pointer relative w-[250px] h-[240px]  border rounded-lg group overflow-hidden">
-                      <div className="absolute flex flex-col items-center w-full h-full">
-                        <h3 className="text-black font-medium mb-2 mt-2">
-                          {key?.exam}-{key?.title}
-                        </h3>
-                        {/* <p style={{ fontSize: 12 }}>Expires on 31 Aug 2024</p> */}
-                        <div
-                          style={{
-                            width: "80%",
-                            backgroundColor: "#f5f5f5",
-                            alignSelf: "center",
-                            padding: "8px",
-                            borderRadius: "3px",
-                            margin: "12px 0",
-                          }}
-                        >
-                          <div className="flex justify-between mb-1">
-                            <h5>Question</h5>
-                            <h1>{key.questions.length}</h1>
-                          </div>
-                          <div className="flex justify-between mb-1">
-                            <h5>Max marks</h5>
-                            <h1>{key.max_marks}</h1>
-                          </div>
-                          <div className="flex justify-between">
-                            <h5>Time</h5>
-                            <h1>{key.durationInMinutes}</h1>
-                          </div>
-                        </div>
-                        {/* "Attempt Now" button */}
-
-                        <button
-                          className="bg-blue-500 text-white py-2 rounded-md absolute bottom-0"
-                          style={{ width: "100%" }}
-                        >
-                          <Link href={`/mock-test/${key._id}`}>
-                            Attempt Now
-                          </Link>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  <>
+                    <a
+                      href="#"
+                      className={`mb-2 border border-gray-200 rounded-md block w-full px-4 py-2 border-b border-gray-200 cursor-pointer  ${
+                        ind === subjectIndex ? "bg-green-400 text-white" : "bg-white text-black"
+                      }`}
+                      onClick={() => handleSubjectIndex(ind)}
+                    >
+                      {subject.name}
+                    </a>
+                  </>
                 );
               })}
             </div>
-          )}
-
-          {selectedType === "Sectional" && (
-            <div className="mt-4">
-              {/* Data for Sectional */}
-              <p>Sectional content goes here...</p>
+            <div>
+              {/* @ts-ignore */}
+              {subjects[subjectIndex]?.topics?.map((topic: Topic) => (
+                <a
+                  href="#"
+                  className="ml-5 rounded-md block w-full px-4 py-2 capitalize border-b border-gray-200 cursor-pointer hover:bg-gray-100 focus:outline-none focus:bg-cyan-400 focus:text-white"
+                  key={topic._id}
+                >
+                  {topic.name}
+                </a>
+              ))}
             </div>
-          )}
-          {selectedType === "Topic Wise" && (
-            <div className="mt-4">
-              {/* Data for Topic Wise */}
-              <p>Topic Wise content goes here...</p>
-            </div>
-          )}
+            {/* Display data based on the selected type */}
+            {selectedType === "Full Syllabus" && (
+              <div className="flex flex-wrap mx-5" style={{ gap: "10px" }}>
+                {testsData?.map((key, index) => {
+                  return (
+                    <MockTestCard
+                      key={key._id}
+                      title={key.title}
+                      questions={key.questions}
+                    />
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>

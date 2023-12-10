@@ -35,6 +35,9 @@ const testSchema = new Schema({
     type: String,
     required: true,
   },
+  mock_type:{
+    type: String,
+  },
   max_marks: {
     type: String,
     required: true,
