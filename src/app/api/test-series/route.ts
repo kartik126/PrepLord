@@ -2,8 +2,47 @@ import { connect } from "@/dbConfig/dbConfig";
 import { Question } from "../../../models/TestSeries";
 import { Test } from "../../../models/TestSeries";
 import { NextResponse } from "next/server";
+import { NextApiRequest } from "next";
 
 connect();
+
+export async function GET(request: Request) {
+  try {
+
+    const { searchParams } = new URL(request.url);
+
+    const exam = searchParams.get('exam');
+    const title = searchParams.get('title');
+    const mock_type = searchParams.get('mock_type');
+
+    // const { slug, title, mock_type } = request.url;
+
+    // Build the filter object based on provided parameters
+    const filter: any = {
+      exam: new RegExp(`^${exam}$`, "i"),
+    };
+
+    // Add additional conditions if title is provided
+    if (title) {
+      filter.title = new RegExp(`^${title}$`, "i");
+    }
+
+    // // Add additional conditions if mock_type is provided
+    if (mock_type) {
+      filter.mock_type = new RegExp(`^${mock_type}$`, "i");
+    }
+
+    const testSeries = await Test.find(filter).populate("questions");
+
+    return NextResponse.json({ success: true, data: testSeries });
+  } catch (error) {
+    console.error("Error retrieving test series", error);
+    return NextResponse.json({
+      message: "Failed to Retrieve Test Series",
+      error: error,
+    });
+  }
+}
 
 export async function POST(request: Request) {
   try {
@@ -17,6 +56,7 @@ export async function POST(request: Request) {
     const exam = data.get("exam");
     const title = data.get("title");
     const max_marks = data.get("max_marks");
+    const mock_type = data.get("mock_type");
     const questions = data.getAll("questions");
     const durationInMinutes = data.get("durationInMinutes");
     // const image = data.image;
@@ -67,6 +107,7 @@ export async function POST(request: Request) {
       exam,
       title,
       max_marks,
+      mock_type,
       questions: questionIds,
       durationInMinutes,
     });

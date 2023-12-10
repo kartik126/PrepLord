@@ -37,6 +37,8 @@ function Page() {
   const [exam, setexam] = useState("");
   const [subjects, setsubjects] = useState([]);
   const [subjectIndex, setsubjectIndex] = useState(0);
+  const [subjectTitle, setsubjectTitle] = useState(null);
+  const [mockType, setmockType] = useState(null);
   const handleTypeChange = (type: any) => {
     setSelectedType(type);
     // You can implement logic here to fetch and display data based on the selected type
@@ -50,8 +52,12 @@ function Page() {
 
   const getTestList = async () => {
     const exam_name: any = localStorage.getItem("myExamName");
+    const title = subjectTitle;
+    const mock_type = null;
     try {
-      const res = await apiClient.get(`${apiClient.Urls.getTestList}/${exam_name}`);
+      const res = await apiClient.get(
+        `${apiClient.Urls.getTestList}/${exam_name}?title=${title}&mock_type=${mock_type}`
+      );
 
       if (res.success) {
         console.log("dataaaaa", res);
@@ -79,10 +85,14 @@ function Page() {
     setsubjectIndex(index);
   };
 
+  const handleTopic = (topic: any) => {
+    setsubjectTitle(topic);
+  };
+
   return (
     <>
       <Header />
-      <div className="flex bg-white pt-20">
+      <div className="flex bg-white pt-20 px-20">
         <div className="w-90">
           <div>
             <h1 className="font-medium text-2xl pt-3">
@@ -162,7 +172,9 @@ function Page() {
                     <a
                       href="#"
                       className={`mb-2 border border-gray-200 rounded-md block w-full px-4 py-2 border-b border-gray-200 cursor-pointer  ${
-                        ind === subjectIndex ? "bg-green-400 text-white" : "bg-white text-black"
+                        ind === subjectIndex
+                          ? "bg-green-400 text-white"
+                          : "bg-white text-black"
                       }`}
                       onClick={() => handleSubjectIndex(ind)}
                     >
@@ -172,13 +184,14 @@ function Page() {
                 );
               })}
             </div>
-            <div>
+            <div className="w-[400px] h-fit">
               {/* @ts-ignore */}
               {subjects[subjectIndex]?.topics?.map((topic: Topic) => (
                 <a
                   href="#"
                   className="ml-5 rounded-md block w-full px-4 py-2 capitalize border-b border-gray-200 cursor-pointer hover:bg-gray-100 focus:outline-none focus:bg-cyan-400 focus:text-white"
                   key={topic._id}
+                  onClick={() => handleTopic(topic.name)}
                 >
                   {topic.name}
                 </a>
@@ -186,14 +199,16 @@ function Page() {
             </div>
             {/* Display data based on the selected type */}
             {selectedType === "Full Syllabus" && (
-              <div className="flex flex-wrap mx-5" style={{ gap: "10px" }}>
+              <div className="flex flex-col mx-10" style={{ gap: "10px" }}>
                 {testsData?.map((key, index) => {
                   return (
-                    <MockTestCard
-                      key={key._id}
-                      title={key.title}
-                      questions={key.questions}
-                    />
+                    <>
+                      <MockTestCard
+                        key={key._id}
+                        title={key.title}
+                        questions={key.questions}
+                      />
+                    </>
                   );
                 })}
               </div>

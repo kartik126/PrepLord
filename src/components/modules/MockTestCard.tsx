@@ -2,7 +2,7 @@ import React from 'react'
 
 function MockTestCard({title,questions}:any) {
   return (
-    <div className="relative flex items-center max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="relative flex items-center p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
     <p className="px-2 text-white bg-green-400 text-sm rounded-full absolute top-4 left-5">
       Free
     </p>

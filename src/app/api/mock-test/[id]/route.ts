@@ -9,8 +9,6 @@ export async function GET(req: Request, { params }: any) {
   try {
     const { id } = params;
 
-    console.log("jhahahahah",id);
-
     const test = await Test.findById(id).populate("questions");
 
     console.log(test);
