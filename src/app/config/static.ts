@@ -45,3 +45,4 @@ export const cities = [
   // ... add more major cities
 ];
 
+export const mock_types = [{ value: "Practice" }, { value: "Full Mock" }];
