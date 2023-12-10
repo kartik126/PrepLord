@@ -48,7 +48,7 @@ function Page() {
     // setexam(exam_name);
     getSubjectList();
     getTestList("PREVIOUS YEAR QUESTIONS");
-  }, []);
+  });
 
   const getTestList = async (subject: any) => {
     const exam: any = localStorage.getItem("myExamName");
@@ -116,7 +116,12 @@ function Page() {
             {mock_types.map((type, ind) => {
               return (
                 <div
-                  className={`border  font-normal  rounded-full px-10 py-1 cursor-pointer ${mockType===type.value?'border-green-400 text-green-400 border-2':'border-gray-400 text-gray-400 border-1' }`}
+                  key={ind}
+                  className={`border  font-normal  rounded-full px-10 py-1 cursor-pointer ${
+                    mockType === type.value
+                      ? "border-green-400 text-green-400 border-2"
+                      : "border-gray-400 text-gray-400 border-1"
+                  }`}
                   onClick={() => handleMockType(type.value)}
                 >
                   <h4>{type.value}</h4>
@@ -130,6 +135,7 @@ function Page() {
                 return (
                   <>
                     <a
+                      key={ind}
                       href="#"
                       className={`mb-2 border border-gray-200 rounded-md block w-full px-4 py-2 border-b border-gray-200 cursor-pointer  ${
                         ind === subjectIndex
