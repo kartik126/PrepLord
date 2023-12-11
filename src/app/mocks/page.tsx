@@ -41,14 +41,14 @@ function Page() {
   const [subjectIndex, setsubjectIndex] = useState(0);
   const [selectedTopicIndex, setSelectedTopicIndex] = useState(0);
   const [subjectTitle, setsubjectTitle] = useState(null);
-  const [mockType, setmockType] = useState(null);
+  const [mockType, setmockType] = useState('Practice');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // setexam(exam_name);
     getSubjectList();
     getTestList("PREVIOUS YEAR QUESTIONS");
-  });
+  },[]);
 
   const getTestList = async (subject: any) => {
     const exam: any = localStorage.getItem("myExamName");
