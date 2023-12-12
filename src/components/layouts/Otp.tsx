@@ -1,11 +1,12 @@
-import { authState, phoneState } from "@/recoil/authState";
+import { authState, otpModalState, phoneState } from "@/recoil/authState";
 import { primary_color } from "@/utils/Colors";
 import apiClient from "@/utils/apiClient";
 import React, { useState } from "react";
-import OtpInput from "react-otp-input";
 import { useRecoilState, useRecoilValue } from "recoil";
+import OtpInput from "react18-input-otp";
 
-function Otp({ open, setopen }: any) {
+function Otp() {
+  const [open, setopen] = useRecoilState(otpModalState);
   const [auth, setAuth] = useRecoilState(authState);
   const [otp, setOtp] = useState("");
   const phone = useRecoilValue(phoneState);
@@ -14,20 +15,23 @@ function Otp({ open, setopen }: any) {
     setopen(false);
   };
 
-  const handleVerifyOtp = async () => {
+  const handleVerifyOtp = async (event: any) => {
+    event.preventDefault();
     try {
       const response = await apiClient.post(`${apiClient.Urls.verifyOtp}`, {
         phone: phone,
         otp: otp,
       });
       const data = response;
+      alert(data.message);
       if (data.success) {
-        alert(data.message)
+        alert(data.message);
         setAuth({
           isAuthenticated: true,
           user: response.user,
           token: response.token,
         });
+        setopen(false)
       } else {
         alert(data.message);
       }
@@ -47,7 +51,7 @@ function Otp({ open, setopen }: any) {
           onClick={closeModal}
           className="float-right text-gray-700 hover:text-gray-900"
         >
-          3242 &#x2715;
+          &#x2715;
         </button>
         <section className="">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -55,28 +59,38 @@ function Otp({ open, setopen }: any) {
               Verify Otp
             </h1>
             <form className="space-y-4 md:space-y-6" action="#">
+              <div className="flex justify-center">
               <OtpInput
                 value={otp}
-                onChange={(e)=>setOtp(e)}
+                onChange={(otp: any) => setOtp(otp)}
                 numInputs={4}
-                renderSeparator={<span>-</span>}
-                renderInput={(props) => <input {...props} />}
+                separator={<span>-</span>}
+                inputStyle={{
+                  width: '3rem', // Adjust width as needed
+                  height: '3rem', // Adjust height as needed
+                  fontSize: '1rem', // Adjust font size as needed
+                  margin: '0.5rem', // Adjust margin as needed
+                  padding: '0.5rem', // Adjust padding as needed
+                  borderRadius: '0.25rem', // Adjust border radius as needed
+                  border: '1px solid #ccc', // Add border as needed
+                }}
               />
+              </div>
               <button
                 type="submit"
                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 style={{ backgroundColor: primary_color }}
+                onClick={handleVerifyOtp}
               >
-                Send Otp
+                Verify
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
                 <a
                   href="#"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                  onClick={handleVerifyOtp}
                 >
-                  Verify
+                  Signup
                 </a>
               </p>
             </form>

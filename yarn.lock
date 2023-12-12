@@ -2604,10 +2604,10 @@ react-is@^16.13.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-otp-input@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/react-otp-input/-/react-otp-input-3.1.0.tgz#50095dfb037d27725a17ecd7d354a4e0e7d12e18"
-  integrity sha512-SNDwqPemy5DYLVQJrOEfZXvJePcDIDmjkln0QyHdje8hRcB1TnrqthxHs0M+E9MWQAyxM84R5yPe2wYjqnH4UA==
+react-otp-input@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/react-otp-input/-/react-otp-input-3.1.1.tgz#910169629812c40a614e6c175cc2c5f36102bb61"
+  integrity sha512-bjPavgJ0/Zmf/AYi4onj8FbH93IjeD+e8pWwxIJreDEWsU1ILR5fs8jEJmMGWSBe/yyvPP6X/W6Mk9UkOCkTPw==
 
 react-simple-image-slider@^2.4.1:
   version "2.4.1"
@@ -2633,6 +2633,11 @@ react-star-ratings@^2.3.0:
     classnames "^2.2.1"
     prop-types "^15.6.0"
     react "^16.1.0"
+
+react18-input-otp@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/react18-input-otp/-/react18-input-otp-1.1.4.tgz#5991c4dae6fff9d2dd0384bfc757e183314181be"
+  integrity sha512-35xvmTeuPWIxd0Z0Opx4z3OoMaTmKN4ubirQCx1YMZiNoe+2h1hsOSUco4aKPlGXWZCtXrfOFieAh46vqiK9mA==
 
 react@18.2.0:
   version "18.2.0"

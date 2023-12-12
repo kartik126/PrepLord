@@ -21,9 +21,10 @@ import Login from "../layouts/Login";
 import { useExams } from "@/hooks/useExams";
 import RightDrawer from "./Drawer";
 import CartItems from "./CartItems";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { authState, loginModalState } from "@/recoil/authState";
+import Signup from "../layouts/Signup";
 import Otp from "../layouts/Otp";
-import { useRecoilValue } from "recoil";
-import { authState } from "@/recoil/authState";
 
 interface examList {
   name: string;
@@ -41,11 +42,9 @@ function classNames(...classes: any) {
 export default function Example() {
   const { exams, isLoading }: any = useExams();
 
-
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [open, setopen] = useState(false);
+  const [open, setopen] = useRecoilState(loginModalState);
   const [otpOpen, setotpOpen] = useState(false);
-
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const { isAuthenticated, user } = useRecoilValue(authState);
@@ -66,10 +65,12 @@ export default function Example() {
 
   return (
     <>
-      {/* Login modal */}
-      <Login open={open} setopen={setopen} hadleOtpOpen={handleOtpOpen} />
-      {/* Otp modal */}
-      <Otp open={otpOpen} setopen={setotpOpen} />
+      {/* login modal */}
+      <Login /> 
+      {/* otp modal */}
+      <Otp/>
+      {/* signup modal */}
+      <Signup />
       {/* cart items drawer */}
       <RightDrawer isOpen={isDrawerOpen} onClose={handleCloseDrawer}>
         <CartItems />
@@ -104,12 +105,12 @@ export default function Example() {
           <Popover.Group className="hidden lg:flex lg:gap-x-12">
             <Link
               href="/"
-              className="text-sm font-semibold leading-6 text-gray-900"
+              className="text-xs font-semibold leading-6 text-gray-900"
             >
               Home
             </Link>
             <Popover className="relative">
-              <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
+              <Popover.Button className="flex items-center gap-x-1 text-xs font-semibold leading-6 text-gray-900">
                 <Link href={`exams/${"upsc"}`}></Link>
                 Exams
                 <ChevronDownIcon
@@ -132,7 +133,7 @@ export default function Example() {
                     {exams?.map((item: examList) => (
                       <div
                         key={item.name}
-                        className="group relative flex items-center gap-x-6 rounded-lg p-3 text-sm leading-6 hover:bg-gray-50"
+                        className="group relative flex items-center gap-x-6 rounded-lg p-3 text-xs leading-6 hover:bg-gray-50"
                       >
                         <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                           <BookOpenIcon
@@ -157,7 +158,7 @@ export default function Example() {
                       <Link
                         key={item.name}
                         href={item.href}
-                        className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
+                        className="flex items-center justify-center gap-x-2.5 p-3 text-xs font-semibold leading-6 text-gray-900 hover:bg-gray-100"
                       >
                         <item.icon
                           className="h-5 w-5 flex-none text-gray-400"
@@ -173,31 +174,37 @@ export default function Example() {
 
             <Link
               href="/topper-corner"
-              className="text-sm font-semibold leading-6 text-gray-900"
+              className="text-xs font-semibold leading-6 text-gray-900"
             >
               Topper Corner
             </Link>
             <Link
               href="/previous-year-papers"
-              className="text-sm font-semibold leading-6 text-gray-900"
+              className="text-xs font-semibold leading-6 text-gray-900"
             >
               Previous Year Papers
             </Link>
             <Link
               href="/mocks"
-              className="text-sm font-semibold leading-6 text-gray-900"
+              className="text-xs font-semibold leading-6 text-gray-900"
             >
               Free Mock
             </Link>
             <Link
+              href="/mocks"
+              className="text-xs font-semibold leading-6 text-gray-900"
+            >
+              Test Series
+            </Link>
+            <Link
               href="/books"
-              className="text-sm font-semibold leading-6 text-gray-900"
+              className="text-xs font-semibold leading-6 text-gray-900"
             >
               Books
             </Link>
             <Link
               href="/job-alerts"
-              className="text-sm font-semibold leading-6 text-gray-900"
+              className="text-xs font-semibold leading-6 text-gray-900"
             >
               Job Alerts
             </Link>
@@ -224,10 +231,11 @@ export default function Example() {
           <div className="hidden  lg:flex lg:flex-1 lg:justify-end">
             <a
               href="#"
-              className="flex flex-row items-center justify-between text-sm bg-[#205383] font-semibold leading-6 text-white p-3 rounded-lg"
+              className="flex flex-row items-center justify-between text-xs bg-[#205383] font-semibold leading-6 text-white p-3 rounded-lg"
               onClick={() => setopen(true)}
             >
-              <UserCircleIcon className="h-5 w-7" /> Log in{" "}
+              {/* @ts-ignore */}
+              <UserCircleIcon className="h-5 w-7" /> {isAuthenticated ? user?.name: "Login"}
               <span aria-hidden="true"></span>
             </a>
           </div>
@@ -280,7 +288,7 @@ export default function Example() {
                               key={item.name}
                               as="a"
                               href={item.href}
-                              className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                              className="block rounded-lg py-2 pl-6 pr-3 text-xs font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                             >
                               {item.name}
                             </Disclosure.Button>

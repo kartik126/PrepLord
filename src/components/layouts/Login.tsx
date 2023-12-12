@@ -1,13 +1,19 @@
 import { primary_color } from "@/utils/Colors";
 import React, { useState } from "react";
-import Signup from "./Signup";
 import apiClient from "@/utils/apiClient";
 import { useRecoilState } from "recoil";
-import { phoneState } from "@/recoil/authState";
+import {
+  loginModalState,
+  otpModalState,
+  phoneState,
+  signupModalState,
+} from "@/recoil/authState";
 
-function Login({ open, setopen,hadleOtpOpen }: any) {
-  const [signupOpen, setsignupOpen] = useState(false);
+function Login() {
   const [phone, setPhone] = useRecoilState(phoneState);
+  const [open, setopen] = useRecoilState(loginModalState);
+  const [signupOpen, setsignupOpen] = useRecoilState(signupModalState);
+  const [otpModal, setotpModal] = useRecoilState(otpModalState);
 
   const closeModal = () => {
     setopen(false);
@@ -19,11 +25,12 @@ function Login({ open, setopen,hadleOtpOpen }: any) {
         phone: phone,
       });
       const data = response;
-      if(data.success) {
+      if (data.success) {
+        setotpModal(true);
+        setopen(false)
         alert(data.message);
-        hadleOtpOpen();
-      }
-      else{
+      } else {
+        setotpModal(false);
         alert(data.message);
       }
     } catch (error) {
@@ -33,7 +40,6 @@ function Login({ open, setopen,hadleOtpOpen }: any) {
 
   return (
     <>
-      <Signup open={signupOpen} setopen={setsignupOpen} />
       <div
         className={`fixed top-0 left-0 flex items-center justify-center w-full h-full bg-gray-800 bg-opacity-50 z-10 ${
           open ? "" : "hidden"
@@ -61,7 +67,7 @@ function Login({ open, setopen,hadleOtpOpen }: any) {
                   </label>
                   <input
                     value={phone}
-                    onChange={(e)=>setPhone(e.target.value)}
+                    onChange={(e) => setPhone(e.target.value)}
                     type="text"
                     name="phone"
                     id="phone"
@@ -105,7 +111,7 @@ function Login({ open, setopen,hadleOtpOpen }: any) {
                     href="#"
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                     onClick={() => {
-                      setsignupOpen(!signupOpen);
+                      setsignupOpen(true);
                       setopen(false);
                     }}
                   >

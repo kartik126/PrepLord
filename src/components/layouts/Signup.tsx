@@ -1,11 +1,11 @@
 "use client";
+import { signupModalState } from "@/recoil/authState";
 import { primary_color } from "@/utils/Colors";
 import React, { useState } from "react";
+import { useRecoilState } from "recoil";
 
-function Signup({ open, setopen }: any) {
-  console.log(open);
-  const [isModalOpen, setIsModalOpen] = useState(true);
-
+function Signup() {
+  const [open, setopen] = useRecoilState(signupModalState);
   const closeModal = () => {
     // setIsModalOpen(false);
     setopen(false);
