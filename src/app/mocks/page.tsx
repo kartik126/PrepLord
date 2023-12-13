@@ -186,6 +186,7 @@ function Page() {
                         key={key._id}
                         title={key.title}
                         questions={key.questions}
+                        id={key._id}
                       />
                     </>
                   );

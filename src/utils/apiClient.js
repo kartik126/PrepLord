@@ -1,4 +1,4 @@
-export const localBaseUrl = "http://localhost:3000/";
+export const localBaseUrl = "https://preplord.vercel.app/";
 export const localImgUrl = "https://preplord.vercel.app/";
 export const BaseUrl = "https://preplord.vercel.app/";
 export const ImgUrl = "https://preplord.vercel.app/";
