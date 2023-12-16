@@ -1,5 +1,6 @@
 import { connect } from "@/dbConfig/dbConfig";
-import { Test } from "@/models/TestSeries";
+import { Test } from "@/models/Mocks";
+
 import { NextResponse } from "next/server";
 
 

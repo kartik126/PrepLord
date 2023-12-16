@@ -1,6 +1,6 @@
 import { connect } from "@/dbConfig/dbConfig";
-import { Question } from "../../../models/TestSeries";
-import { Test } from "../../../models/TestSeries";
+import { Question } from "../../../models/Mocks";
+import { Test } from "../../../models/Mocks";
 import { NextResponse } from "next/server";
 import { NextApiRequest } from "next";
 

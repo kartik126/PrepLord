@@ -54,9 +54,34 @@ const testSchema = new Schema({
   },
 });
 
+const testSeriesSchema = new Schema({
+  exam: {
+    type: String,
+    required: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  totalTests: {
+    type: Number,
+    required: true,
+  },
+  tests: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Test",
+    },
+  ],
+});
+
 // Create models for questions and exams based on the schemas
 const Question =
   mongoose.models.Question || mongoose.model("Question", questionSchema);
+
 const Test = mongoose.models.Test || mongoose.model("Test", testSchema);
 
-export { questionSchema, testSchema, Question, Test };
+const TestSeries =
+  mongoose.models.TestSeries || mongoose.model("TestSeries", testSeriesSchema);
+
+export { questionSchema, testSchema, Question, Test,TestSeries };
